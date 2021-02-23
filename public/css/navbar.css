@@ -1,0 +1,172 @@
+@import url("fonts.css");
+
+/* ------- Local Variables ------- */
+
+:root {
+  /* Fonts */
+  --Abel: "Abel", cursive;
+  --Anton: "Anton", cursive;
+  --Josefin: "Josefin", cursive;
+  --Lexend: "Lexend", cursive;
+  --Livvic: "Livvic", cursive;
+      --ScopeOne: 'ScopeOne', cursive;
+    --UnicaOne: 'UnicaOne', cursive;
+    --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
+
+      /*  Colors */
+    --hover-grey: rgba(255, 255, 255, 0.65);
+    --color-white: #F2F2F2; 
+    --color-accent: #42FFB7;
+    --color-green: #44C4BF;
+    --color-green-blue: #4789C7;
+    --color-light-blue: #494ECE;
+    --color-dark-blue: #4B13D6;
+
+  /* Gradients */
+  --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+}
+
+/* ------- Global Classes ------- */
+
+
+
+/* ------- Navigation Bar ------- */
+.nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  min-height: 88px;
+  background: rgba(73, 78, 206, 0.05);
+  padding: 0 3rem;
+  transition: all 0.95s cubic-bezier(0.26, -0.01, 0, 1.01);
+}
+
+.nav .nav-bar {
+  justify-content: space-between;
+  margin-bottom: -16px;
+}
+
+.nav .nav-brand {
+  font-size: 3rem;
+  padding: 1.4rem;
+  display: block;
+  font-family: var(--Lexend);
+}
+
+.nav .nav-brand .brand-logo {
+  color: white;
+  fill: white;
+  background: none;
+  vertical-align: text-top;
+}
+
+.nav .menu {
+  position: absolute;
+  top: 0;
+  left: 80px;
+  cursor: pointer;
+  display: none;
+  font-size: 2rem;
+}
+
+.nav a{
+  color: white;
+}
+
+.nav a:hover {
+  color: var(--hover-grey);
+}
+
+.nav .nav-items a::after{
+   background: none repeat scroll 0 0 transparent;
+   bottom: 0;
+   content: "";
+   height: 2px;
+   left: 50%;
+   position: absolute;
+   background: #fff;
+   transition: width 0.3s ease 0s,
+   left 0.3s ease 0s;
+   width: 0;
+}
+
+.nav .nav-items a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav .nav-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav .nav-items .nav-link {
+  padding: 1.6rem 1rem;
+  font-family: var(--ScopeOne);
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.nav .user {
+  color: white;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 1.4rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.nav-bar .user:hover {
+  color: var(--hover-grey);
+}
+
+.nav .icons {
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem 0;
+}
+
+
+/* ------- JS Classes ------- */
+
+.expand {
+  height: 38rem;
+}
+
+.fixNav {
+  position: fixed;
+  background: linear-gradient(to right, rgba(68, 196, 191, 0.98), rgba(73, 78, 206, 0.98));
+}
+
+/* ------- Rezise Viewport depending on device screen -------*/
+
+/*      Called If Viewport > 883        */
+@media only screen and (max-width: 900px) {
+
+  .nav {
+    background: rgba(73, 78, 206, 1);
+  }
+
+  .nav .nav-bar,
+  .nav .nav-items {
+    flex-direction: column;
+  }
+
+  .brand-logo{
+      visibility: hidden;
+  }
+
+  .nav .menu {
+    display: initial;
+  }
+}

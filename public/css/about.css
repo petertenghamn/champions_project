@@ -1,0 +1,186 @@
+@import url("fonts.css");
+
+/* ------- Local Variables ------- */
+
+:root {
+    /* Fonts */
+    --Abel: "Abel", cursive;
+    --Anton: "Anton", cursive;
+    --Josefin: "Josefin", cursive;
+    --Lexend: "Lexend", cursive;
+    --Livvic: "Livvic", cursive;
+    --ScopeOne: 'ScopeOne', cursive;
+    --UnicaOne: 'UnicaOne', cursive;
+    --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
+
+    /*  Colors */
+    --hover-grey: rgba(255, 255, 255, 0.65);
+
+    --text-grey: #8790AF;
+    --text-blue: #5E88FC;
+
+    --color-white: #F2F2F2;
+    --color-accent: #42FFB7;
+    --color-green: #44C4BF;
+    --color-green-blue: #4789C7;
+    --color-light-blue: #494ECE;
+    --color-dark-blue: #4B13D6;
+
+    /* Gradients */
+    --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+
+    /* Variables */
+    --navbar-size: 75px;
+}
+
+/* ------- Global Classes ------- */
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0%;
+    overflow-y: scroll;
+}
+
+body {
+    margin: 0%;
+}
+
+h1 {
+    text-align: center;
+    font-family: var(--ScopeOne);
+    font-size: 2.5rem;
+}
+
+h2 {
+    text-align: center;
+    font-family: var(--UnicaOne);
+}
+
+h3 {
+    text-align: center;
+    font-family: var(--ScopeOne);
+    font-size: 1.3rem;
+}
+
+p {
+    font-family: var(--YanoneKaffeesatz);
+    letter-spacing: 2px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    max-width: 100px;
+}
+
+button.btn {
+    border: none;
+    border-radius: 2rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    font-family: var(--YanoneKaffeesatz);
+    cursor: pointer;
+    margin: 5px;
+    background-image: var(--Risky-Concreate);
+
+}
+
+button.btn:hover {
+    color: white;
+    background-image: none;
+    background-color: var(--color-accent);
+}
+
+.btn-link {
+    border: none;
+    border-radius: 2rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    font-family: var(--YanoneKaffeesatz);
+    cursor: pointer;
+    margin: 5px;
+    background-image: var(--Risky-Concreate);
+    width: 150px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn-link:hover {
+    color: white;
+    background-image: none;
+    background-color: var(--color-accent);
+}
+
+.link-tag {
+    padding-left: 10px;
+}
+
+.section-padding {
+    height: 100px;
+}
+
+/* ------- Intro Section ------- */
+.site-intro {
+    color: white;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+
+    grid-template-columns: 300px 300px 50px 300px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "img img . header"
+        "img img . paragraph"
+        "img img . button";
+
+    padding: 30px;
+    padding-top: calc(var(--navbar-size) + 20vh);
+    background-image:
+        linear-gradient(to top, rgba(68, 196, 191, 1), rgba(73, 78, 206, .85)),
+        url('https://aspiremetro.com/wp-content/uploads/2020/04/819-Fairways-Drive-print-006-004-Dining-Room-3600x2400-300dpi.jpg');
+    background-size: cover;
+}
+
+.site-intro img {
+    align-self: center;
+    z-index: 1;
+    grid-area: img;
+    margin-bottom: -75px;
+    max-width: 100%;
+}
+
+.site-intro h1 {
+    margin: 0%;
+    font-size: 1.3rem;
+    grid-area: header;
+    align-self: end;
+}
+
+.site-intro p {
+    margin: 0%;
+    padding: 0px;
+    padding-top: 15px;
+    grid-area: paragraph;
+}
+
+.site-intro button {
+    grid-area: button;
+}
+
+.site-intro button:hover {
+    margin: calc(5px - 2px);
+    background: transparent;
+    border: 2px solid white;
+}
+
