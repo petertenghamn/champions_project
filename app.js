@@ -4,7 +4,6 @@ const path = require('path');
 
 // Routes
 //const mysqlConnection = require("./connection");
-const HomeRoutes = require("./routes/home_route");
 const AboutRoutes = require("./routes/about_route");
 const BlogRoutes = require("./routes/blog_route");
 

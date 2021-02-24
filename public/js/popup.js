@@ -45,7 +45,7 @@ function closeModal (modal) {
 // ----------- Login | Registration Page ---------- 
 
 const login = document.getElementById('title-login');
-const name = document.getElementById('form-name');
+const confirm = document.getElementById("form-confirm");
 const email = document.getElementById('form-email');
 const registerBtn = document.getElementById('btn-register');
 
@@ -60,7 +60,7 @@ $(login).click(function() {
   $(login).addClass("highlighted");
   $(register).removeClass("highlighted");
 
-  $(name).hide("slow");
+  $(confirm).hide("slow");
   $(email).hide("slow");
   $(registerBtn).hide("slow");
 });
@@ -70,13 +70,14 @@ $(register).click(function() {
   $(register).addClass("highlighted");
   $(login).removeClass("highlighted");
 
-  $(name).show("slow");
+  $(confirm).show("slow");
   $(email).show("slow");
   $(registerBtn).show("slow");
 
   $(loginBtn).hide("slow");
 });
 
+// Makes the login highlighted on load
 function highlightLogin() {
   $(login).addClass("highlighted");
 }

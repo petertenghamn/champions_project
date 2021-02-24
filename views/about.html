@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Blog</title>
+    <title>About</title>
 
     <!-- Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,7 +11,7 @@
         integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
 
     <!-- Stylesheet reference -->
-    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/popup.css">
 
@@ -118,36 +118,45 @@
     <!-- Popup Script -->
     <script src="js/popup.js" onload="highlightLogin()"></script>
 
+    <!-- The Contents of the page -->
     <main>
 
+        <!-- The Intro Section -->
+        <section class="site-intro" id="intro">
+            <h1>Studying in Kristianstad </h1>
+            <p>Most the projects mentioned in this blog have been elaborated as part of course examinations. In which we have worked as a team whenever possible knowing that we could reach out to different groups each time to get a more diverse work experience and still achieve the project's success. </p>
+            <img src="assets/images/HKR_logo.png" alt="HKR Logo">
+        
+        </section>
 
+        <section class="site-team" id="team">
+                <h1>About Us</h1>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ab accusamus consequatur expedita repudiandae veritatis, maiores asperiores! Adipisci magni eos totam hic quas. Hic nobis repudiandae cupiditate unde minus ex.</p>
+            <img id="img-ON" src="assets/images/ID_ÖNilsson.bmp" alt="A picture of Öjvind Nilsson">
+            <h2 id="name-ON">Öjvind Nilsson</h2>
+            <img id="img-PT" src="assets/images/Peter.bmp" alt="A picture of Peter Tenghamn">
+            <h2 id="name-PT">Peter Tenghamn</h2>
+        </section>
 
-        <table border="1">
-    <tr>
-        <th>Title</th>
-        <th>Snippet</th>
-        <th>Link</th>
-        <th>Comments</th>
-    </tr>
+        <div class="section-padding"></div>
 
-    <%
-    if(posts.length!=0){
-        posts.forEach(function(data){
-            var id = data.id%>
-            <tr>
-                <td><%=data.title%></td>
-                <td><%=data.snippet%></td>
-                <td><a href="http://localhost:3000/post/<%=id%>">Blog Post <%=id%></a></td>
-                <td><%=data.comments%></td>
-            </tr>
-        <% })
-    } else { %>
-      <tr>
-          <td colspan="4">No Data Found</td>
-      </tr>
-    <% } %>
-</table>
+        <section class="site-sponsors" id="sponsors">
+        
+        </section>
+
+        <div class="section-padding"></div>
+
+        <section class="site-roles" id="roles">
+        
+        </section>
+
+        <div class="section-padding"></div>
+
     </main>
 
+
+
+
 </body>
+
 </html>

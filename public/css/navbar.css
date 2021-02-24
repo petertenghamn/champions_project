@@ -12,23 +12,36 @@
       --ScopeOne: 'ScopeOne', cursive;
     --UnicaOne: 'UnicaOne', cursive;
     --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
+    --TypeWriter: 'Typewriter',
+    cursive;
 
       /*  Colors */
     --hover-grey: rgba(255, 255, 255, 0.65);
-    --color-white: #F2F2F2; 
-    --color-accent: #42FFB7;
-    --color-green: #44C4BF;
-    --color-green-blue: #4789C7;
-    --color-light-blue: #494ECE;
-    --color-dark-blue: #4B13D6;
+        --color-white: #F6FFF8;
+        --color-accent: #50AA00;
+        --color-green: #50AA00;
+        --color-green-blue: #CCE3DE;
+        --color-light-blue: #EAF4F4;
+        --color-dark-blue: #595F72;
+        
 
   /* Gradients */
   --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  --Young-Grass: background-image: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
+  --New-Life: background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
 
 /* ------- Global Classes ------- */
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
+.logo {
+  max-width: 100px;
+}
 
 /* ------- Navigation Bar ------- */
 .nav {
@@ -37,7 +50,7 @@
   width: 100%;
   z-index: 2;
   min-height: 88px;
-  background: rgba(73, 78, 206, 0.05);
+  background: rgba(80, 170, 0, 0.05);
   padding: 0 3rem;
   transition: all 0.95s cubic-bezier(0.26, -0.01, 0, 1.01);
 }
@@ -51,7 +64,7 @@
   font-size: 3rem;
   padding: 1.4rem;
   display: block;
-  font-family: var(--Lexend);
+  font-family: var(--TypeWriter);
 }
 
 .nav .nav-brand .brand-logo {
@@ -145,16 +158,21 @@
 
 .fixNav {
   position: fixed;
-  background: linear-gradient(to right, rgba(68, 196, 191, 0.98), rgba(73, 78, 206, 0.98));
+  background: linear-gradient(to right, rgba(163, 206, 241, 1), rgba(39, 76, 119, 0.75));
 }
 
-/* ------- Rezise Viewport depending on device screen -------*/
+.currentLocation {
+  outline: 2px solid white;
+  outline-offset: -13px;
+}
+
+/* ------- Resize Viewport depending on device screen -------*/
 
 /*      Called If Viewport > 883        */
 @media only screen and (max-width: 900px) {
 
   .nav {
-    background: rgba(73, 78, 206, 1);
+    background: rgba(80, 170, 0, 1);
   }
 
   .nav .nav-bar,

@@ -12,7 +12,6 @@
     --ScopeOne: 'ScopeOne', cursive;
     --UnicaOne: 'UnicaOne', cursive;
     --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
-    --TypeWriter: 'Typewriter', cursive;
 
     /*  Colors */
     --hover-grey: rgba(255, 255, 255, 0.65);
@@ -29,12 +28,13 @@
 
     /* Gradients */
     --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
-    --Young-Grass: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
-    --New-Life: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+    --Young-Grass: background-image: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
+    --New-Life: background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 
     /* Variables */
     --navbar-size: 75px;
 }
+
 
 /* ------- Global Classes ------- */
 
@@ -123,67 +123,12 @@ button.btn:hover {
     height: 100px;
 }
 
-/* ------- Intro Section ------- */
-.site-intro {
-    color: white;
-    display: grid;
-    justify-items: center;
-    justify-content: center;
-    column-gap: 50px;
-
-    grid-template-columns: 300px 440px;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "img header"
-        "img paragraph";
-
-    padding: 30px;
-    padding-top: calc(var(--navbar-size) + 20vh);
-    background-image:
-        linear-gradient(to top, rgba(163, 206, 241, 1), rgba(39, 76, 119, 0.75)),
-        url('https://www.hkr.se/contentassets/9488a63f42ec4aa3b04828e9fa699c75/hkr.campus.0122.jpg');
-    background-size: cover;
+header{
+        color: white;
+        display: grid;
+        justify-items: center;
+        justify-content: center;
+        padding-top: calc(var(--navbar-size) + 1vh);
+        background-image: linear-gradient(to top, rgba(163, 206, 241, 1), rgba(39, 76, 119, 1));
+        background-size: cover;
 }
-
-.site-intro img {
-    align-self: center;
-    z-index: 1;
-    max-width: 300px;
-    margin-bottom: -75px;
-    grid-area: img;
-}
-
-.site-intro h1 {
-        text-shadow: 0.05em 0 black,
-        0 0.05em black,
-        -0.05em 0 black,
-        0 -0.05em black,
-        -0.05em -0.05em black,
-        -0.05em 0.05em black,
-        0.05em -0.05em black,
-        0.05em 0.05em black;
-    grid-area: header;
-    font-size: 2rem;
-    margin: 0%;
-    align-self: end;
-}
-
-.site-intro p {
-        text-shadow:
-        0.05em 0 black,
-        0 0.05em black,
-        -0.05em 0 black,
-        0 -0.05em black,
-        -0.05em -0.05em black,
-        -0.05em 0.05em black,
-        0.05em -0.05em black,
-        0.05em 0.05em black;
-    grid-area: paragraph;
-    margin: 0%;
-    padding: 0px;
-    padding-top: 15px;
-    font-family: var(--ScopeOne);
-    font-weight: bold;
-}
-
-

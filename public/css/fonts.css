@@ -37,3 +37,8 @@
     font-family: YanoneKaffeesatz;
     src: url('../assets/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf');
 }
+
+@font-face {
+    font-family: Typewriter;
+    src: url('../assets/fonts/JMH_Typewriter/JMH\ Typewriter.ttf');
+}

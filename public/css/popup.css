@@ -2,7 +2,7 @@
 
 /* ------- Local Variables ------- */
 
-:root{
+:root {
     /* Fonts */
     --Abel: 'Abel', cursive;
     --Anton: 'Anton', cursive;
@@ -14,51 +14,57 @@
     --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
 
     /*  Colors */
-    --text-grey: #3f4954;
-    --color-white: #F2F2F2; 
-    --color-accent: #42FFB7;
-    --color-green: #44C4BF;
-    --color-green-blue: #4789C7;
-    --color-light-blue: #494ECE;
-    --color-dark-blue: #4B13D6;
+    --hover-grey: rgba(255, 255, 255, 0.65);
+
+    --text-grey: #8790AF;
+    --text-blue: #5E88FC;
+
+    --color-white: #E7ECEF;
+    --color-accent: #9BD832;
+    --color-green: #50AA00;
+    --color-green-blue: #A3CEF1;
+    --color-light-blue: #6096BA;
+    --color-dark-blue: #274C77;
 
     /* Gradients */
     --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+    --Young-Grass: background-image: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
+    --New-Life: background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
 
 /* ------- Global Classes ------- */
 
-a{
+a {
     text-decoration: none;
     color: var(--text-grey);
 }
 
-ul{
+ul {
     list-style-type: none;
 }
 
-.flex-row{
+.flex-row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.txt-in{
+.txt-in {
     font-family: var(--YanoneKaffeesatz);
     border-radius: 5px;
     border: var(--color-accent);
 }
 
-.form-txt{
+.form-txt {
     font-family: var(--YanoneKaffeesatz);
 }
 
 /* ------- Pop-up ------- */
-.modal{
+.modal {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform:  translate(-50%, -50%) scale(0); 
+    transform: translate(-50%, -50%) scale(0);
     transition: 200ms ease-in-out;
     border: 1px solid black;
     border-radius: 10px;
@@ -70,16 +76,16 @@ ul{
 }
 
 .modal.active {
-    transform:  translate(-50%, -50%) scale(1); 
+    transform: translate(-50%, -50%) scale(1);
 
 }
 
-.modal-header{
+.modal-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.modal-header .title{
+.modal-header .title {
     font-size: 2rem;
     font-weight: bold;
     font-family: var(--UnicaOne);
@@ -88,19 +94,19 @@ ul{
 }
 
 .modal-header .title-login:hover {
-    background: var(--color-accent);
+    background: var(--color-dark-blue);
     color: white;
     cursor: pointer;
 }
 
 
 .modal-header .title-register:hover {
-    background: var(--color-accent);
+    background: var(--color-dark-blue);
     color: white;
     cursor: pointer;
 }
 
-.btn-login-close{
+.btn-login-close {
     margin-left: auto;
     margin-right: 15px;
     display: block;
@@ -117,11 +123,11 @@ ul{
 }
 
 .btn-login-close:hover {
-    color: var(--color-accent);
+    color: var(--color-dark-blue);
 }
 
 
-.modal-body{
+.modal-body {
     background: var(--color-white);
     padding: 10px 15px;
     text-align: center;
@@ -129,54 +135,63 @@ ul{
     border-bottom-left-radius: 15px;
 }
 
-.modal-body .form-section{
+.modal-body .form-section {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-.modal-body .form-name, .form-email, .btn_login_register {
+/* This is needed for proper alignment since text is bigger than the others */
+.modal-body .form-confirm {
+    text-align: left;
+}
+
+.modal-body .form-confirm,
+.form-email,
+.btn_login_register {
     display: none;
 }
 
-.modal-body .txt-username{
+.modal-body .txt-username {
     margin-right: 5px;
 }
 
-.modal-body .txt-password{
+.modal-body .txt-password {
     margin-right: 6px;
 }
 
-.modal-body .txt-name{
-    margin-right: 22px;
+.modal-body .txt-confirm {
+    margin-right: 6px;
+    text-align: left;
+    margin-left: 107px;
 }
 
-.modal-body .txt-email{
+.modal-body .txt-email {
     margin-right: 18px;
 }
 
 .modal-body .popup-btn {
     border: none;
-  border-radius: 2rem;
-  padding: 1rem 3rem;
-  font-size: 1rem;
-  font-family: var(--YanoneKaffeesatz);
-  cursor: pointer;
+    border-radius: 2rem;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-family: var(--YanoneKaffeesatz);
+    cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px;
     background-image: var(--Risky-Concreate);
 }
 
 .modal-body .popup-btn:hover {
-    background: var(--color-accent);
+    background: var(--color-dark-blue);
     color: white;
 }
 
 .highlighted {
-    background: var(--color-accent);
+    background: var(--color-dark-blue);
     color: white;
 }
 
-#overlay{
+#overlay {
     position: fixed;
     opacity: 0;
     top: 0;
