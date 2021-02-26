@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css\glide\about\glide.core.min.css">
+    <link rel="stylesheet" href="css\glide\about\glide.theme.min.css">
 
 </head>
 
@@ -124,39 +126,250 @@
         <!-- The Intro Section -->
         <section class="site-intro" id="intro">
             <h1>Studying in Kristianstad </h1>
-            <p>Most the projects mentioned in this blog have been elaborated as part of course examinations. In which we have worked as a team whenever possible knowing that we could reach out to different groups each time to get a more diverse work experience and still achieve the project's success. </p>
+            <p>Most the projects mentioned in this blog have been elaborated as part of course examinations. In which we
+                have worked as a team whenever possible knowing that we could reach out to different groups each time to
+                get a more diverse work experience and still achieve the project's success. </p>
             <img src="assets/images/HKR_logo.png" alt="HKR Logo">
-        
-        </section>
+            <button class="btn download"
+                onclick="window.location.href = 'https://www.hkr.se/en/program/bachelor-software-development'">
+                <i class="fas fa-graduation-cap"></i>
+                Learn More
+            </button>
 
-        <section class="site-team" id="team">
-                <h1>About Us</h1>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ab accusamus consequatur expedita repudiandae veritatis, maiores asperiores! Adipisci magni eos totam hic quas. Hic nobis repudiandae cupiditate unde minus ex.</p>
-            <img id="img-ON" src="assets/images/ID_ÖNilsson.bmp" alt="A picture of Öjvind Nilsson">
-            <h2 id="name-ON">Öjvind Nilsson</h2>
-            <img id="img-PT" src="assets/images/Peter.bmp" alt="A picture of Peter Tenghamn">
-            <h2 id="name-PT">Peter Tenghamn</h2>
         </section>
 
         <div class="section-padding"></div>
 
-        <section class="site-sponsors" id="sponsors">
-        
+        <section class="site-team" id="team">
+            <h3><span>About Us</span></h3>
+            <img id="img-ON" src="assets/images/ID_ÖNilsson.bmp" alt="A picture of Öjvind Nilsson">
+            <h2 id="name-ON">Öjvind Nilsson</h2>
+            <p id="p-ON">I am a Swedish-Mexican engineering student and have lived in many diverse places such as
+                Sweden, Mexico, UK, France, and the US. I have shown excellence in my field of study and have been
+                awarded the outstanding student award in 2017. My professors nominated me because I showed dedication
+                and performance as well as compassion and a willingness to help my fellow students.</p>
+            <div class="container-links" id="links-ON">
+
+                <a href="mailto: ojvindnilsson@egmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="tel:076-224-5906"><i class="fas fa-phone"></i></a>
+                <a href="https://linkedin.com/in/ojvind-nilsson-7642b28a"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/onilsson-hkr"><i class="fab fa-github"></i></a>
+
+            </div>
+
+            <img id="img-PT" src="assets/images/Peter.bmp" alt="A picture of Peter Tenghamn">
+            <h2 id="name-PT">Peter Tenghamn</h2>
+            <p id="p-PT">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem cupiditate odio enim blanditiis
+                error hic praesentium numquam? Neque, deleniti esse? Dolores quasi rem facere. Explicabo tempore totam
+                unde exercitationem maiores.</p>
+            <div class="container-links" id="links-PT">
+
+                <a href="mailto: ojvindnilsson@egmail.com"><i class="fas fa-envelope"></i></a>
+
+                <a href="tel:070-767-1487"><i class="fas fa-phone"></i></a>
+
+                <a href="https://www.facebook.com/peter.tenghamn"><i class="fab fa-facebook"></i></a>
+
+                <a href="https://github.com/petertenghamn"><i class="fab fa-github"></i></a>
+
+                </>
+        </section>
+
+        <div class="section-padding"></div>
+
+        <section class="site-references" id="references">
+
+            <h1>See What People Have Said About Us</h1>
+
+            <div class="container">
+                <!-- The carousel section-->
+                <div class="glide">
+
+                    <!-- The contents of the carousel-->
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <h2>This is a quote</h2>
+                                <h3>-- Our Teacher</h3>
+                            </li>
+                            <li class="glide__slide">
+                                <h2>Yeah I think they're in the class</h2>
+                                <h3>-- Our Peers</h3>
+                            </li>
+                            <li class="glide__slide">
+                                <h2>He's ok</h2>
+                                <h3>-- My mom</h3>
+                            </li>
+                            <li class="glide__slide">
+                                <h2>Who are you?</h2>
+                                <h3>-- Someone we asked</h3>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <!-- The controls of the carousel -->
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i
+                                class="fas fa-arrow-circle-left"></i></button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i
+                                class="fas fa-arrow-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scripts controlling the carousel -->
+            <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+            <!-- Loading of carousel dependency -->
+            <script>
+                const config = {
+                    type: 'carousel',
+                    hoverpause: true,
+                    autoplay: 2000
+                }
+
+                new Glide('.glide', config).mount()
+            </script>
+
+        </section>
+
+        <div class="section-padding"></div>
+
+        <section class="site-setup" id="setup">
+            <h1>How did we build this website?</h1>
+
+            <div class="container-setup item-1">
+
+                <div class="icons">
+
+                    <i class="fab fa-github"></i>
+                    <i class="fab fa-discord"></i>
+                </div>
+
+                <h2>Communication</h2>
+                <p>We used Github and Discord in order to collaborate while working online.</p>
+            </div>
+
+            <div class="container-setup item-2">
+
+                <div class="icons">
+                    
+                    <i class="fab fa-js"></i>
+                    <i class="fab fa-java"></i>
+                </div>
+                
+                <h2>Frontend Coding</h2>
+                <p>The website uses a mix of Jquery and JavaScript to make the site more responsive. Along with EJS the
+                    website interacts with the database</p>
+            </div>
+
+
+            <div class="container-setup item-3">
+
+                <div class="icons">
+                    
+                    <i class="fab fa-node"></i>
+                    <i class="fas fa-database"></i>
+                </div>
+                
+                <h2>Backend Coding</h2>
+                <p>While the backend of the website consists of Node.JS for the server and MySQL for the database</p>
+            </div>
+
+            <div class="container-roles">
+
+            </div>
         </section>
 
         <div class="section-padding"></div>
 
         <section class="site-roles" id="roles">
-        
+            <h1>Who did what?</h1>
+            <div class="container-frontend">
+
+                <h2>Frontend</h2>
+                <h3>Öjvind Nilsson</h3>
+                <p>I was responsible for the design and frontend coding such as the HTML CSS and JS which interacted
+                    directly with the user.</p>
+                <img class="gif" src="assets\gifs\frontend.gif" alt="A picture of Öjvind Nilsson">
+            </div>
+
+            <div class="container-backend">
+
+                <h2>Backend</h2>
+                <h3>Peter Tenghamn</h3>
+                <p>My job was to take the frontend and attach it to the database and server. Things like login in the
+                    user and generating the content of the website from the database.</p>
+                <img id="img-PT" src="assets\gifs\backend.gif" alt="A picture of Peter Tenghamn">
+            </div>
         </section>
 
         <div class="section-padding"></div>
 
     </main>
 
-
-
+    <!-- A section with all the colors for testing purposes -->
+    <div class="colors">
+        <div class="color blue-green"></div>
+        <div class="color blue-green"></div>
+        <div class="color blue-light"></div>
+        <div class="color blue-light"></div>
+        <div class="color blue-dark"></div>
+    </div>
 
 </body>
+
+<footer>
+    <div class="class">
+        <h2 class="class-title">DA377B VT21</h2>
+        <p class="class-par">This website was developed as part of a course in Högskolan Kristianstad Software
+            Engineering Program</p>
+    </div>
+
+    <div class="authors">
+        <h2 class="auth-title">Group 12</h2>
+        <h3 class="auth oj">Öjvind Nilsson</h3>
+        <p class="auth-p oj">Design / Frontend ( HTML | CSS | Javascript )</p>
+        <h3 class="auth pt">Peter Tenghamn</h3>
+        <p class="auth-p ao">Backend ( Java | MySQL )</p>
+    </div>
+
+    <div class="link">
+        <h2 class="link-title">Go back up!</h2>
+        <ul class="links">
+            <li class="nav-link" id="link-intro">
+                <a href="#intro">
+                    <i class="fas fa-graduation-cap"></i>
+                    School
+                </a>
+            </li>
+            <li class="nav-link" id="link-team">
+                <a href="#team">
+                    <i class="fas fa-user-friends"></i>
+                    About Us
+                </a>
+            </li>
+            <li class="nav-link" id="link-vision">
+                <a href="#references">
+                    <i class="fas fa-quote-right"></i>
+                    References
+                </a>
+            </li>
+            <li class="nav-link" id="link-setup">
+                <a href="#setup">
+                    <i class="fas fa-tools"></i>
+                    Setup
+                </a>
+            </li>
+            <li class="nav-link" id="link-roles">
+                <a href="#roles">
+                    <i class="fas fa-dice"></i>
+                    Roles
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</footer>
 
 </html>

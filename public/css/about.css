@@ -20,7 +20,7 @@
     --text-grey: #8790AF;
     --text-blue: #5E88FC;
 
-    --color-white: #E7ECEF;
+    --color-white: #F2F2F2;
     --color-accent: #9BD832;
     --color-green: #50AA00;
     --color-green-blue: #A3CEF1;
@@ -29,8 +29,6 @@
 
     /* Gradients */
     --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
-    --Young-Grass: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
-    --New-Life: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 
     /* Variables */
     --navbar-size: 75px;
@@ -135,7 +133,8 @@ button.btn:hover {
     grid-template-rows: auto;
     grid-template-areas:
         "img header"
-        "img paragraph";
+        "img paragraph"
+        "img button";
 
     padding: 30px;
     padding-top: calc(var(--navbar-size) + 20vh);
@@ -154,7 +153,7 @@ button.btn:hover {
 }
 
 .site-intro h1 {
-        text-shadow: 0.05em 0 black,
+    text-shadow: 0.05em 0 black,
         0 0.05em black,
         -0.05em 0 black,
         0 -0.05em black,
@@ -169,7 +168,7 @@ button.btn:hover {
 }
 
 .site-intro p {
-        text-shadow:
+    text-shadow:
         0.05em 0 black,
         0 0.05em black,
         -0.05em 0 black,
@@ -186,4 +185,335 @@ button.btn:hover {
     font-weight: bold;
 }
 
+.site-intro button {
+    grid-area: button;
+    margin-top: 25px;
+    margin-bottom: -50px;
+}
 
+.site-intro button:hover {
+    color: white;
+}
+
+@media screen and (max-width: 850px) {
+    .site-intro img {
+        display: none !important;
+    }
+
+    .site-intro {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+/* ------- About Us Section ------- */
+
+.site-team {
+    
+    padding-left: 50px;
+    padding-right: 50px;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    grid-column-gap: 50px;
+    grid-template-columns: 1fr 250px 250px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "title title title title"
+        "linksON nameON namePT linksPT"
+        "pON imgON imgPT pPT";
+}
+
+.site-team h2 {
+    font-size: 1.8rem;
+}
+
+.site-team h3 {
+    grid-area: title;
+    color: var(--text-grey);
+    text-align: center;
+    width: 25%;
+    border-bottom: 1px solid #dbdee7;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+    font-size: 1.75rem;
+    color: var(--text-blue);
+}
+
+.site-team h3 span {
+    grid-area: title;
+    background: #fff;
+    padding: 0 10px;
+}
+
+.site-team img {
+    border-radius: 50%;
+    max-width: 250px;
+    color: var(--color-green);
+}
+
+.site-team #img-ON {
+    grid-area: imgON;
+}
+
+.site-team #name-ON {
+    grid-area: nameON;
+}
+
+.site-team #p-ON {
+    grid-area: pON;
+}
+
+.site-team #links-ON {
+    grid-area: linksON;
+}
+
+.site-team #img-PT {
+    grid-area: imgPT;
+}
+
+.site-team #name-PT {
+    grid-area: namePT;
+}
+
+.site-team #p-PT {
+    grid-area: pPT;
+}
+
+.site-team #links-PT {
+    grid-area: linksPT;
+}
+
+.site-team .container-links {
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.site-team .fa-envelope {
+    color: var(--color-green);
+    margin: 10px;
+}
+
+.site-team .fa-phone {
+    color: var(--color-accent);
+    margin: 10px;
+}
+
+.site-team .fa-facebook {
+    margin: 10px;
+    color: rgb(59, 91, 152);
+}
+
+.site-team .fa-linkedin {
+    margin: 10px;
+    color: #0270AD;
+}
+
+.site-team .fa-github {
+    margin: 10px;
+    color: purple;
+}
+
+@media screen and (max-width: 850px) {
+    .site-team {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+}
+
+/* ------- References Section ------- */
+
+.site-references .container {
+    background: var(--color-white);
+    position: relative;
+    margin: auto;
+    max-width: 800px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.site-references h1{
+    color: var(--text-blue);
+}
+
+.site-references h3{
+    padding-right: 150px;
+    text-align: end;
+    margin-bottom: 15px;
+}
+
+/* ------- Setup Section ------- */
+
+.site-setup {
+    display: grid;
+    padding-left: 50px;
+    padding-right: 50px;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 15px;
+    grid-template-areas: 
+    "title title title"
+    ". . .";
+}
+
+.site-setup h1 {
+    grid-area: title;
+    color: var(--text-blue);
+}
+
+.site-setup .container-setup {
+    padding: 10px;
+    display:  grid;
+    text-align: center;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-content: center;
+    -webkit-box-shadow: -4px 13px 33px -3px rgba(66, 66, 66, 0.49);
+    -moz-box-shadow: -4px 13px 33px -3px rgba(66, 66, 66, 0.49);
+    box-shadow: -4px 13px 33px -3px rgba(66, 66, 66, 0.49);
+}
+
+.site-setup .item-1 {
+        background: #cae3f7;
+}
+
+.site-setup .item-2 {
+        background: #caf7cf;
+}
+
+.site-setup .item-3 {
+        background: #f28e8e;
+}
+
+.site-setup .container-setup .icons {
+    font-size: 2.5rem;
+}
+
+/* ------- Roles Section ------- */
+
+.site-roles {
+    color: white;
+    width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 10px;
+    grid-template-areas: 
+    "title title"
+    "front back";
+}
+
+.site-roles h1 {
+    color: var(--text-blue);
+    grid-area: title;
+}
+
+.site-roles .container-frontend {
+    grid-area: front;
+    background-image: linear-gradient(45deg, rgba(163, 206, 241, 0.5) 0%, rgba(39, 76, 119, 0.5) 100%),
+    url("https://cdn.thedesigninspiration.com/wp-content/uploads/2016/10/Front-End-Background-Pattern-l.png");
+}
+
+.site-roles h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.site-roles p {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.site-roles .container-backend {
+    grid-area: back;
+    background-image: linear-gradient(45deg, rgba(80, 170, 0, 0.2) 0%, rgba(146, 94, 120, 0.5) 100%),
+    url("https://img.freepik.com/free-vector/technology-low-poly-mesh-lines-background_1017-20210.jpg?size=626&ext=jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* ------- Color Section ------- */
+.colors {
+    display: grid;
+    height: 15px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.accent {
+    background-color: var(--color-accent);
+}
+
+.green {
+    background-color: var(--color-green);
+}
+
+.blue-green {
+    background-color: var(--color-green-blue);
+}
+
+.blue-light {
+    background-color: var(--color-light-blue);
+}
+
+.blue-dark {
+    background-color: var(--color-dark-blue);
+}
+
+/* ------- Footer Section -------- */
+footer {
+    padding-top: 15px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-image: linear-gradient(to right, rgba(163, 206, 241, 1), rgba(39, 76, 119, 1));
+}
+
+footer .class {
+    max-width: 200px;
+}
+
+footer .disc {
+    max-width: 200px;
+}
+
+footer .authors {
+    max-width: 265px;
+}
+
+footer .authors .auth {
+    font-size: 1rem;
+}
+
+footer .authors .auth-p {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+footer .link {
+    max-width: 200px;
+}
+
+footer .links li {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    background: var(--color-white);
+}
+
+footer .links li:hover {
+    background: var(--color-accent);
+}
+
+footer .links li:hover a {
+    color: white;
+}
