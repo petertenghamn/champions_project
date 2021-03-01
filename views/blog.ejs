@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/blog.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css\glide\blog\glide.core.min.css">
+    <link rel="stylesheet" href="css\glide\blog\glide.theme.min.css">
 
 </head>
 
@@ -121,33 +123,125 @@
     <main>
 
 
+        <section class="site-intro" id="intro">
 
-        <table border="1">
-    <tr>
-        <th>Title</th>
-        <th>Snippet</th>
-        <th>Link</th>
-        <th>Comments</th>
-    </tr>
+            <div class="intro-blog">
+                <h2>Blog Description</h2>
+                <p>This blog consists of projects that Öjvind Nilsson and Peter Tenghamn have worked together on while
+                    studying in HKR. Some projects were developed in larger groups while some were just us two. We hope
+                    you enjoy our blog!</p>
+            </div>
 
-    <%
+            <div class="intro-users">
+
+                <h2>Subscribed Users</h2>
+                <div class="container-users">
+                </div>
+                <!-- The carousel section-->
+                <div class="glide">
+
+                    <!-- The contents of the carousel-->
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">
+                                <h3>Username 1</h3>
+                            </li>
+                            <li class="glide__slide">
+                                <img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">
+                                <h3>Username 2</h3>
+                            </li>
+                            <li class="glide__slide">
+                                <img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">
+                                <h3>Username 3</h3>
+                            </li>
+                            <li class="glide__slide">
+                                <img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">
+                                <h3>Username 4</h3>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scripts controlling the carousel -->
+            <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+            <!-- Loading of carousel dependency -->
+            <script>
+                const config = {
+                    type: 'slider',
+                    perView: 3,
+
+                    gap: '10',
+                    hoverpause: true,
+                    autoplay: 2000,
+                    peek: {
+                        before: 10,
+                        after: 10
+                    }
+                }
+
+                new Glide('.glide', config).mount()
+            </script>
+
+        </section>
+
+        <section class="site-content" id="content">
+
+
+
+            <%
     if(posts.length!=0){
         posts.forEach(function(data){
             var id = data.id%>
-            <tr>
-                <td><%=data.title%></td>
-                <td><%=data.snippet%></td>
-                <td><a href="http://localhost:3000/post/<%=id%>">Blog Post <%=id%></a></td>
-                <td><%=data.comments%></td>
-            </tr>
-        <% })
-    } else { %>
-      <tr>
-          <td colspan="4">No Data Found</td>
-      </tr>
-    <% } %>
-</table>
-    </main>
 
+            <h4>Sept 13, 2020</h4>
+
+            <div class="item">
+
+                <img src="assets/gifs/demo_MapleStory.gif" alt="Demo of Project">
+
+                <h1><%=data.title%></h1>
+                <h3><%=data.snippet%></h3>
+                <hr>
+
+                <h2>Comments</h2>
+                <p><%=data.comments%></p>
+                <hr>
+
+                <div class="item-buttons">
+
+                    <!-- This should only be displayed if the user is logged in -->
+                    <button class="btn">
+                        Comment
+                    </button>
+
+                    <!-- This should only be displayed if the user logged in is an admin -->
+                    <a href="http://localhost:3000/post/<%=id%>">Edit Post <%=id%></a>
+                </div>
+            </div>
+
+            <% })
+    } else { %>
+
+            <div class="item">
+
+                <h1>Something Went Wrong</h1>
+                <img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"
+                    alt="Oops">
+                <p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about
+                    it! </p>
+
+            </div>
+
+            <% } %>
+
+        </section>
+
+        <div class="section-padding"></div>
+    </main>
 </body>
+
 </html>

@@ -17,18 +17,12 @@
 
       /*  Colors */
     --hover-grey: rgba(255, 255, 255, 0.65);
-        --color-white: #F6FFF8;
-        --color-accent: #50AA00;
-        --color-green: #50AA00;
-        --color-green-blue: #CCE3DE;
-        --color-light-blue: #EAF4F4;
-        --color-dark-blue: #595F72;
+    
+    --color-white: white;
+    --color-accent: #CC2B28;
+    --color-light-blue: #ADDCFF;
+    --color-dark-blue: #274C77;
         
-
-  /* Gradients */
-  --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
-  --Young-Grass: background-image: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
-  --New-Life: background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
 
 /* ------- Global Classes ------- */
@@ -50,7 +44,7 @@ ul {
   width: 100%;
   z-index: 2;
   min-height: 88px;
-  background: rgba(80, 170, 0, 0.05);
+
   padding: 0 3rem;
   transition: all 0.95s cubic-bezier(0.26, -0.01, 0, 1.01);
 }
@@ -64,7 +58,7 @@ ul {
   font-size: 3rem;
   padding: 1.4rem;
   display: block;
-  font-family: var(--TypeWriter);
+  font-family: var(--UnicaOne);
 }
 
 .nav .nav-brand .brand-logo {

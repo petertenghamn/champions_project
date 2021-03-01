@@ -19,11 +19,9 @@
     --text-grey: #8790AF;
     --text-blue: #5E88FC;
 
-    --color-white: #E7ECEF;
-    --color-accent: #9BD832;
-    --color-green: #50AA00;
-    --color-green-blue: #A3CEF1;
-    --color-light-blue: #6096BA;
+    --color-white: white;
+    --color-accent: #CC2B28;
+    --color-light-blue: #b1ddff;
     --color-dark-blue: #274C77;
 
     /* Gradients */
@@ -123,12 +121,12 @@ ul {
 }
 
 .btn-login-close:hover {
-    color: var(--color-dark-blue);
+    background: var(--hover-grey);
 }
 
 
 .modal-body {
-    background: var(--color-white);
+    background: var(--color-light-blue);
     padding: 10px 15px;
     text-align: center;
     border-bottom-right-radius: 15px;

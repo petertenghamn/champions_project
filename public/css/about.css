@@ -20,12 +20,10 @@
     --text-grey: #8790AF;
     --text-blue: #5E88FC;
 
-    --color-white: #F2F2F2;
-    --color-accent: #9BD832;
-    --color-green: #50AA00;
-    --color-green-blue: #A3CEF1;
-    --color-light-blue: #6096BA;
-    --color-dark-blue: #274C77;
+    --color-white: white;
+    --color-accent: #CC2B28;
+    --color-light-blue: #ADDCFF;
+    --color-dark-blue: #;
 
     /* Gradients */
     --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
@@ -81,36 +79,15 @@ button.btn {
     font-family: var(--YanoneKaffeesatz);
     cursor: pointer;
     margin: 5px;
-    background-image: var(--Risky-Concreate);
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    color: var(--text-grey);
 
 }
 
 button.btn:hover {
-    color: white;
+    color: var(--text-grey);
     background-image: none;
-    background-color: var(--color-accent);
-}
-
-.btn-link {
-    border: none;
-    border-radius: 2rem;
-    padding: 0.6rem 1.5rem;
-    font-size: 1rem;
-    font-family: var(--YanoneKaffeesatz);
-    cursor: pointer;
-    margin: 5px;
-    background-image: var(--Risky-Concreate);
-    width: 150px;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.btn-link:hover {
-    color: white;
-    background-image: none;
-    background-color: var(--color-accent);
+    background-color: var(--hover-grey);
 }
 
 .link-tag {
@@ -189,10 +166,6 @@ button.btn:hover {
     grid-area: button;
     margin-top: 25px;
     margin-bottom: -50px;
-}
-
-.site-intro button:hover {
-    color: white;
 }
 
 @media screen and (max-width: 850px) {
@@ -293,8 +266,12 @@ button.btn:hover {
 }
 
 .site-team .fa-envelope {
-    color: var(--color-green);
+    color: var(--color-dark-blue);
     margin: 10px;
+}
+
+.site-team .fa-envelope:hover {
+    color: var(--text-grey);
 }
 
 .site-team .fa-phone {
@@ -302,9 +279,17 @@ button.btn:hover {
     margin: 10px;
 }
 
+.site-team .fa-phone:hover {
+    color: var(--text-grey);
+}
+
 .site-team .fa-facebook {
     margin: 10px;
     color: rgb(59, 91, 152);
+}
+
+.site-team .fa-facebook:hover {
+    color: var(--text-grey);
 }
 
 .site-team .fa-linkedin {
@@ -312,10 +297,19 @@ button.btn:hover {
     color: #0270AD;
 }
 
+.site-team .fa-linkedin:hover {
+    color: var(--text-grey);
+}
+
 .site-team .fa-github {
     margin: 10px;
     color: purple;
 }
+
+.site-team .fa-github:hover {
+   color: var(--text-grey);
+}
+
 
 @media screen and (max-width: 850px) {
     .site-team {
@@ -330,12 +324,13 @@ button.btn:hover {
 /* ------- References Section ------- */
 
 .site-references .container {
-    background: var(--color-white);
+    background: var(--color-light-blue);
     position: relative;
     margin: auto;
     max-width: 800px;
     padding-top: 15px;
     padding-bottom: 15px;
+    border-radius: 50px;
 }
 
 .site-references h1{
@@ -511,7 +506,7 @@ footer .links li {
 }
 
 footer .links li:hover {
-    background: var(--color-accent);
+    background: var(--hover-grey);
 }
 
 footer .links li:hover a {
