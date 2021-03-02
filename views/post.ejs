@@ -1,18 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Post</title>
-   
+    <title>Edit Post</title>
+
+    <!-- Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js"
+        integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+
+    <!-- Stylesheet reference -->
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/post.css">
+
 </head>
+
+<header>
+    <!-- ------------- NAVIGATION ------------- -->
+    <nav class="nav">
+        <div class="nav-bar flex-row">
+
+            <div class="nav-brand">
+
+                <a href="http://localhost:3000/">
+                    <img class="brand-logo" src="../assets/svg/blog.svg" width="50">
+                    <span class="brand-brandname">Blog</span>
+                </a>
+            </div>
+
+            <!-- ------------- Menu used if screen <= 750px  ------------- -->
+            <div class="menu">
+                <div class="icons">
+                    <span>
+                        <i class="fas fa-bars"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div>
+                <ul class="nav-items">
+                    <li class="nav-link" id="link-home">
+                        <a href="http://localhost:3000/">Home</a>
+                    </li>
+                    <li class="nav-link" id="link-about">
+                        <a href="http://localhost:3000/about">About</a>
+                    </li>
+                    <li class="nav-link" id="link-editing">
+                        <a href="">Editing</a>
+                    </li>
+                </ul>
+            </div>
+
+            <button data-modal-target="#modal" class="user">
+                <i class="fas fa-user-circle"></i>
+            </button>
+        </div>
+    </nav>
+</header>
+<!-- The Java Script file that controls the navbar-->
+<script src="../js/navbar.js"></script>
+
 <body>
 
-<h1><%-title%></h1>
-<br>
-<p><%-description%></p>
-<br>
-<br>
-<a href="http://localhost:3000/blog">Back</a>
+    <section class="site-content">
+
+        <h1>You are editing the Post</h1>
+        <h3>To edit parts of the post simply click on the sections you want to edit and start typing. When finished click submit otherwise if you want to cancel navigate away using the top buttons or click cancel.</h3>
+    
+
+        <p class="error" id="err1">small error</p>
+        <p class="error" id="err2">small error</p>
+
+        <div class="post">
+
+            <input class="edit-title" type="text" name="title" id="title" placeholder="<%-title%>">
+        
+            <div>
+                <input class="edit-p" type="text" name="description" id="description" placeholder="<%-description%>">
+            </div>
+
+            <hr>
+
+            <!-- TODO: Comments? Optional -->
+        
+        </div>
+
+        <div class="container-buttons">
+
+            <button class="btn" type="button" id="btn-submit">Submit</button>
+        
+            <a href="http://localhost:3000" class="btn-edit">CANCEL</a>
+        </div>
+        
+    </section>
 
 </body>
+
+<!-- JavaScripts that need to be loaded AFTER page load -->
+<script src="../js/user.js"></script>
+<script src="../js/post.js"></script>
+
 </html>
