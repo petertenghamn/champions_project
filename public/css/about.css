@@ -98,6 +98,18 @@ button.btn:hover {
     height: 100px;
 }
 
+.error {
+    display: none;
+    color: var(--color-white);
+    background-color: var(--color-accent);
+    border-radius: 50px;
+}
+
+.error:hover {
+    color: var(--color-dark-blue);
+    background-color: var(--hover-grey);
+}
+
 /* ------- Intro Section ------- */
 .site-intro {
     color: white;

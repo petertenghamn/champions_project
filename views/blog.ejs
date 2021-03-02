@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css\glide\blog\glide.core.min.css">
     <link rel="stylesheet" href="css\glide\blog\glide.theme.min.css">
-
 </head>
 
 <header>
@@ -68,48 +67,67 @@
 
         <button data-modal-close class="btn-login-close">&times;</button>
 
-        <div class="modal-header">
+        <div class="modal-header" id="modal-header">
             <div class="title title-login" id="title-login">Login</div>
             <div class="title title-register" id="title-register">Register</div>
         </div>
 
         <div class="modal-body">
-            <form class="modal-form" action="${pageContext.request.contextPath}/login" method="post">
+
+            <!-- Logged in -->
+            <div class="container-logged" id="container-logged">
+                <h1 id="welcome">Welcome username!</h1>
+                <div>
+                    <img src="assets/vectors/user_avatars/001-man.svg" alt="User avatar not found!" width="150px" id="user-avatar">
+                </div>
+                <button class="popup-btn btn_logout" name="btn_logout" type="button" value="logout" id="btn-logout">
+                    Log Out
+                </button>
+            </div>
+
+            <!-- Error messages -->
+            <p class="error" id="err1">small error</p>
+            <p class="error" id="err2">You did something very wrong and now it's long</p>
+            <p class="error" id="err3">Er</p>
+            <p class="error" id="err4">Er</p>
+
+            <!-- Login / Register  -->
+            <form class="modal-form" action="${pageContext.request.contextPath}/login" method="post" id="modal-form">
 
                 <div class="form-section form-username">
                     <span class="form-txt txt-username">
                         Username:
                     </span>
-                    <input class="txt-in" type="text" name="username">
+                    <input class="txt-in" type="text" name="username" id="username">
                 </div>
 
                 <div class="form-section form-password">
                     <span class="form-txt txt-password">
                         Password:
                     </span>
-                    <input class="txt-in" type="password" name="password">
+                    <input class="txt-in" type="password" name="password" id="password">
                 </div>
 
                 <div class="form-section form-confirm" id="form-confirm">
                     <span class="form-txt txt-confirm">
                         Confirm Password:
                     </span>
-                    <input class="txt-in" type="text" name="name">
+                    <input class="txt-in" type="password" name="confirm" id="confirm">
                 </div>
 
                 <div class="form-section form-email" id="form-email">
                     <span class="form-txt txt-email">
                         Email:
                     </span>
-                    <input class="txt-in" type="text" name="email">
+                    <input class="txt-in" type="email" name="email" id="email">
                 </div>
 
-                <button class="popup-btn btn_login_register" name="btn_request" type="submit" value="register"
+                <button class="popup-btn btn_login_register" name="btn_register" type="button" value="register"
                     id="btn-register">
                     Register
                 </button>
 
-                <button class="popup-btn btn_login_login" name="btn_request" type="submit" value="login" id="btn-login">
+                <button class="popup-btn btn_login_login" name="btn_login" type="button" value="login" id="btn-login">
                     Login
                 </button>
             </form>
@@ -120,8 +138,10 @@
     <!-- Popup Script -->
     <script src="js/popup.js" onload="highlightLogin()"></script>
 
-    <main>
+    <!-- Has to be placed AFTER the popup script -->
+    <script src="js/login.js"></script>
 
+    <main>
 
         <section class="site-intro" id="intro">
 
@@ -144,6 +164,8 @@
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
                             <li class="glide__slide">
+                                <!-- TODO get these from the DB -->
+                                <!-- Image could just be saved as the path to the image -->
                                 <img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">
                                 <h3>Username 1</h3>
                             </li>
@@ -201,25 +223,31 @@
 
             <div class="item">
 
-                <img src="<%=data.img%>" alt="Demo of Project">
+                <img src="<%=data.img%>" alt="Demo of Project NOT Loaded">
 
                 <h1><%=data.title%></h1>
                 <h3><%=data.snippet%></h3>
                 <hr>
 
                 <h2>Comments</h2>
-                <p><%=data.comments%></p>
+                <p id="p-comments<%=id%>"><%=data.comments%></p>
                 <hr>
 
+                <!-- This should only be displayed if the user is logged in -->
+                <p class="error" id="errComment<%=id%>">small error</p>
+
+                <!-- This should only be displayed if the user is logged in -->
+                <input class="txt-in comment-in" type="text" name="comment" id="comment<%=id%>" placeholder="Type your Comment">
+                
                 <div class="item-buttons">
 
                     <!-- This should only be displayed if the user is logged in -->
-                    <button class="btn">
+                    <button class="btn btn-comment" id="btn-comment<%=id%>">
                         Comment
                     </button>
 
                     <!-- This should only be displayed if the user logged in is an admin -->
-                    <a href="http://localhost:3000/post/<%=id%>">Edit Post <%=id%></a>
+                    <a href="http://localhost:3000/post/<%=id%>" class="btn-edit">Edit Post <%=id%></a>
                 </div>
             </div>
 
@@ -243,5 +271,8 @@
         <div class="section-padding"></div>
     </main>
 </body>
+
+<!-- JavaScripts that need to be loaded AFTER page load -->
+    <script src="js/user.js"></script>
 
 </html>

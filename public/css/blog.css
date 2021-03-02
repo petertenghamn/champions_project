@@ -25,6 +25,9 @@
     --color-light-blue: #ADDCFF;
     --color-dark-blue: #274C77;
 
+        /* Gradients */
+        --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+
     /* Variables */
     --navbar-size: 75px;
 }
@@ -78,6 +81,18 @@ p {
     height: 100px;
 }
 
+.error {
+    display: none;
+    color: var(--color-white);
+    background-color: var(--color-accent);
+    border-radius: 50px;
+}
+
+.error:hover {
+    color: var(--color-dark-blue);
+    background-color: var(--hover-grey);
+}
+
 
 /* ------- Intro Section ------- */
 .site-intro {
@@ -129,7 +144,12 @@ p {
 }
 
 .site-content h4 {
-    margin: 0;
+    margin: 0%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    width: 1064px;
+
     padding-left: 150px;
     padding-bottom: 10px;
     padding-top: 75px;
@@ -160,6 +180,15 @@ p {
     border-top: 1px solid thistle;
 }
 
+.site-content .item .comment-in {
+    display: none;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    padding: 12px 20px;
+    width: 50%;
+    background: var(--Risky-Concreate);
+}
+
 .site-content .item .item-buttons {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -180,6 +209,7 @@ p {
 }
 
 button.btn {
+    display: none;
     border: none;
     border-radius: 2rem;
     padding: 0.6rem 1.5rem;
