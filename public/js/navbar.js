@@ -74,6 +74,11 @@ function highlightCurrentLink() {
                 $(linkItem).addClass("currentLocation");
 
             }
+        } else if (url.includes("post")) {
+            if (linkItem.id.includes("editing")) {
+                $(linkItem).addClass("currentLocation");
+
+            }
         } else {
             if (linkItem.id.includes("home")) {
                 $(linkItem).addClass("currentLocation");

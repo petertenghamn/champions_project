@@ -1,0 +1,193 @@
+@import url("fonts.css");
+
+/* ------- Local Variables ------- */
+
+:root {
+    /* Fonts */
+    --Abel: "Abel", cursive;
+    --Anton: "Anton", cursive;
+    --Josefin: "Josefin", cursive;
+    --Lexend: "Lexend", cursive;
+    --Livvic: "Livvic", cursive;
+    --ScopeOne: 'ScopeOne', cursive;
+    --UnicaOne: 'UnicaOne', cursive;
+    --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
+    --TypeWriter: 'Typewriter', cursive;
+
+    /*  Colors */
+    --hover-grey: rgba(255, 255, 255, 0.65);
+
+    --text-grey: #8790AF;
+    --text-blue: #5E88FC;
+
+    --color-white: white;
+    --color-accent: #CC2B28;
+    --color-green: #659B5E;
+    --color-light-blue: #ADDCFF;
+    --color-dark-blue: #274C77;
+
+    /* Gradients */
+    --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+
+    /* Variables */
+    --navbar-size: 75px;
+}
+
+/* ------- Global Classes ------- */
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0%;
+    overflow-y: scroll;
+    background: cornflowerblue;
+}
+
+body {
+    margin: 0%;
+}
+
+h1 {
+    text-shadow: 0.05em 0.05em black;
+    color: var(--color-accent);
+    text-align: center;
+    font-family: var(--ScopeOne);
+    font-size: 2.5rem;
+}
+
+h2 {
+    text-align: center;
+    font-family: var(--UnicaOne);
+}
+
+h3 {
+    color: var(--color-white);
+    text-shadow: 0.05em 0.05em black;
+    text-align: center;
+    font-family: var(--ScopeOne);
+    font-size: 1.3rem;
+}
+
+p {
+    font-family: var(--YanoneKaffeesatz);
+    letter-spacing: 2px;
+}
+
+.link-tag {
+    padding-left: 10px;
+}
+
+.section-padding {
+    height: 100px;
+}
+
+.error {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    display: none;
+    color: var(--color-white);
+    background-color: var(--color-accent);
+    border-radius: 50px;
+}
+
+.error:hover {
+    color: var(--color-dark-blue);
+    background-color: var(--hover-grey);
+}
+
+/* ------- The Navbar Re-design --------- */
+
+.nav .user {
+    visibility: hidden;
+}
+
+/* ------- The Site Content section --------- */
+
+.site-content {
+    margin-bottom: 15px;
+
+    padding-bottom: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: calc(var(--navbar-size) + 10vh);
+}
+
+.site-content .container-buttons {
+    padding-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+}
+
+.site-content a {
+    background: var(--color-accent);
+    color: var(--color-white);
+    padding: 0.6rem 1.5rem;
+    margin: 5px;
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    font-family: var(--YanoneKaffeesatz);
+}
+
+.site-content a:hover {
+    background: var(--hover-grey);
+}
+
+.site-content button {
+    background: var(--color-green);
+    color: var(--color-white);
+    padding: 0.6rem 1.5rem;
+    margin: 5px;
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    font-family: var(--YanoneKaffeesatz);
+}
+
+.site-content button:hover {
+    background: var(--hover-grey);
+}
+
+/* -------- The Post Content -------- */
+
+.site-content .post {
+        text-align: center;
+        max-width: 1064px;
+        background: var(--color-white);
+        border-radius: 50px;
+        padding-bottom: 10px;
+        margin: 0 auto;
+        max-width: 850px;
+}
+
+.site-content .edit-title {
+    text-align: center;
+    font-family: var(--ScopeOne);
+    font-size: 2.5rem;
+    border: none;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 500px;
+    color: var(--text-blue);
+}
+
+.site-content .edit-p {
+    text-align: center;
+    font-family: var(--YanoneKaffeesatz);
+    letter-spacing: 2px;
+    border: none;
+    width: 90%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.site-content hr {
+    margin-left: 15%;
+    margin-right: 15%;
+    border-top: 1px solid thistle;
+}
