@@ -1,10 +1,10 @@
 .glide__arrow {
-    font-size: 2rem;
+    font-size: 3rem;
     position: absolute;
     display: block;
     top: 50%;
-    z-index: 2;
-    color: black;
+    z-index: 1;
+    color: gray;
     text-transform: uppercase;
     padding: 9px 12px;
     background-color: transparent;
@@ -22,7 +22,7 @@
 }
 
 .glide__arrow:hover {
-    color: #9BD832;
+    color: #ADDCFF;
 }
 
 .glide__arrow--left {
@@ -85,4 +85,13 @@
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing
+}
+
+.glide__slide {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.glide__slide img {
+    max-width: 50px;
 }

@@ -19,11 +19,10 @@
     --text-grey: #8790AF;
     --text-blue: #5E88FC;
 
-    --color-white: #E7ECEF;
-    --color-accent: #9BD832;
-    --color-green: #50AA00;
-    --color-green-blue: #A3CEF1;
-    --color-light-blue: #6096BA;
+    --color-white: white;
+    --color-accent: #CC2B28;
+    --color-green: #659B5E;
+    --color-light-blue: #ADDCFF;
     --color-dark-blue: #274C77;
 
     /* Gradients */
@@ -123,12 +122,12 @@ ul {
 }
 
 .btn-login-close:hover {
-    color: var(--color-dark-blue);
+    background: var(--hover-grey);
 }
 
 
 .modal-body {
-    background: var(--color-white);
+    background: var(--color-light-blue);
     padding: 10px 15px;
     text-align: center;
     border-bottom-right-radius: 15px;
@@ -191,6 +190,29 @@ ul {
     color: white;
 }
 
+
+
+.modal .container-logged > * {
+   display: none;
+}
+
+.modal-body .container-logged h1 {
+    color: white;
+    text-shadow: 0.05em 0.05em black;
+}
+
+.modal-body .container-logged img {
+    background-color: var(--color-white);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal-body .container-logged img:hover {
+    background-color: var(--hover-grey);
+    opacity: 50%;
+}
+
+/* Classes manipulated by javaScript */
 #overlay {
     position: fixed;
     opacity: 0;
@@ -207,4 +229,8 @@ ul {
     z-index: 2;
     opacity: 1;
     pointer-events: all;
+}
+
+.hidden{
+    display: none;
 }

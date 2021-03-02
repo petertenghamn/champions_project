@@ -7,11 +7,32 @@ const path = require("path");
 // Next to the button a number representing the number of comments could be displayed as well?
 
 Router.get('/', (req, res) => {
+
+
     // Temp data to simulate retrieving it from the DB
+    // img can just be a string to the path of the image if not possible to store gif in database
     const tempData = [
-        {title: "Flappy Birb", snippet: "A arduino based game.", id: 1, comments: 3},
-        {title: "Pokemon", snippet: "First game group project using java.", id: 2, comments: 42},
-        {title: "Dungeon Delver", snippet: "A turned based combat game made for android.", id: 3, comments: 13},
+      {
+        img: "assets/gifs/demo_MapleStory.gif",
+        title: "Flappy Bird",
+        snippet: "An arduino based game.",
+        id: 1,
+        comments: 3,
+      },
+      {
+        img: "assets/gifs/demo_MapleStory.gif",
+        title: "Pokemon",
+        snippet: "First game group project using java.",
+        id: 2,
+        comments: 42,
+      },
+      {
+        img: "assets/gifs/demo_MapleStory.gif",
+        title: "Dungeon Delver",
+        snippet: "A turned based combat game made for android.",
+        id: 3,
+        comments: 13,
+      },
     ];
 
     res.render('blog', { posts: tempData })

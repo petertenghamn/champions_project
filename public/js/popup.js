@@ -44,31 +44,43 @@ function closeModal (modal) {
 
 // ----------- Login | Registration Page ---------- 
 
-const login = document.getElementById('title-login');
+const loginTitle = document.getElementById('title-login');
 const confirm = document.getElementById("form-confirm");
 const email = document.getElementById('form-email');
 const registerBtn = document.getElementById('btn-register');
 
-const register = document.getElementById('title-register');
+const registerTitle = document.getElementById('title-register');
 const loginBtn = document.getElementById('btn-login');
 
 // This is an onclick as above but in jquery
-$(login).click(function() {
+$(loginTitle).click(function() {
   $(loginBtn).show("slow");
 
+  // Hides the error messages if any are showing
+  $(err1).hide("slow");
+  $(err2).hide("slow");
+  $(err3).hide("slow");
+  $(err4).hide("slow");
+
   // Makes sure that the current tab is highlighted
-  $(login).addClass("highlighted");
-  $(register).removeClass("highlighted");
+  $(loginTitle).addClass("highlighted");
+  $(registerTitle).removeClass("highlighted");
 
   $(confirm).hide("slow");
   $(email).hide("slow");
   $(registerBtn).hide("slow");
 });
 
-$(register).click(function() {
+$(registerTitle).click(function() {
+  // Hides the error messages if any are showing
+  $(err1).hide("slow");
+  $(err2).hide("slow");
+  $(err3).hide("slow");
+  $(err4).hide("slow");
+
   // Makes sure that the current tab is highlighted
-  $(register).addClass("highlighted");
-  $(login).removeClass("highlighted");
+  $(registerTitle).addClass("highlighted");
+  $(loginTitle).removeClass("highlighted");
 
   $(confirm).show("slow");
   $(email).show("slow");
@@ -79,7 +91,7 @@ $(register).click(function() {
 
 // Makes the login highlighted on load
 function highlightLogin() {
-  $(login).addClass("highlighted");
+  $(loginTitle).addClass("highlighted");
 }
 
 // The following is code relating to disabling and enabling scrolling
