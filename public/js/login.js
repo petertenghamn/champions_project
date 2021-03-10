@@ -172,12 +172,28 @@ function validateRegistration() {
  * TODO: retrieve the username from the DB
  */
 function login() {
-    var username = $("#username").val(); // **** This should be taken from the DB ****
+    var username = $("#username").val();
+    var pass = $("#password").val();
 
-    // Creates a cookie stored in local memory (Client side) is deleted when browser is closed
-    document.cookie = "username=" + username + "; path=/";
+    $.ajax({
+        url: "/verify",
+        type: "POST",
+        data: { username: username, password: pass},
+        success: function (response, status, http) {
+            if (response){
+                if (response.toString() === "Valid"){
+                    // Creates a cookie stored in local memory (Client side) is deleted when browser is closed
+                    document.cookie = "username=" + username + "; path=/";
 
-    loginAttempt();
+                    loginAttempt();
+                }
+                // TODO: Give an error to the user?
+            }
+            else {
+                // TODO: Give an error to the user?
+            }
+        }
+    })
 }
 
 /**
