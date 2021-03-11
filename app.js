@@ -23,6 +23,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Get and Put methods using the DB
+app.get('/users/get', function (req, res) {
+  // Retrieve a list of all the users within the DB
+  mysqlConnection.query("SELECT username FROM users;", (err, rows, fields) => {
+    if (!err) {
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
+
 app.post('/verify', function (req, res) {
   // Method used to verify that the login information is correct
   mysqlConnection.query("SELECT username, password FROM users WHERE username='" + req.body.username + "' AND password='" + req.body.password + "';", (err, rows, fields) => {

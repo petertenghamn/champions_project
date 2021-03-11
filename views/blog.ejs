@@ -161,7 +161,7 @@
                 <div class="glide">
 
                     <!-- The contents of the carousel-->
-                    <div class="glide__track" data-glide-el="track">
+                    <div class="glide__track" data-glide-el="track" id="glide__track_id">
                         <ul class="glide__slides">
                             <li class="glide__slide">
                                 <!-- TODO get these from the DB -->
@@ -274,5 +274,51 @@
 
 <!-- JavaScripts that need to be loaded AFTER page load -->
     <script src="js/user.js"></script>
+
+    <!-- Carousel update from DB -->
+    <script>
+        $(document).ready(function () {
+            function update() {
+                $.ajax({
+                    url: '/users/get',
+                    contentType: 'application/json',
+                    success: function(response){
+                        $("#glide__track_id ul").remove();
+                        //Take the response and use it to fill the table
+                        var trHTML = '<ul class="glide__slides">';
+                        if (response && response.length > 0){
+                            <!-- TODO get these from the DB -->
+                            <!-- Image could just be saved as the path to the image -->
+                            response.forEach(element =>
+                                trHTML +=
+                                    '<li class="glide__slide">' +
+                                    '<img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">' +
+                                    '<h3>' + element.username + '</h3>' +
+                                    '</li>'
+                            );
+                        }
+                        trHTML += '</ul>';
+                        $('#glide__track_id').append(trHTML);
+
+                        const config = {
+                            type: 'slider',
+                            perView: 3,
+
+                            gap: '10',
+                            hoverpause: true,
+                            autoplay: 2000,
+                            peek: {
+                                before: 10,
+                                after: 10
+                            }
+                        }
+
+                        new Glide('.glide', config).mount()
+                    }
+                })
+            }
+            update();
+        })
+    </script>
 
 </html>
