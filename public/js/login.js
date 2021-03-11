@@ -180,14 +180,15 @@ function login() {
         type: "POST",
         data: { username: username, password: pass},
         success: function (response, status, http) {
-            if (response){
-                if (response.toString() === "Valid"){
-                    // Creates a cookie stored in local memory (Client side) is deleted when browser is closed
-                    document.cookie = "username=" + username + "; path=/";
+            if (response) {
+                // Creates a cookie stored in local memory (Client side) is deleted when browser is closed
+                document.cookie = "username=" + response.username + "; path=/";
+                if (response.admin === 0)
+                    document.cookie = "admin=false; path=/";
+                else
+                    document.cookie = "admin=true; path=/";
 
-                    loginAttempt();
-                }
-                // TODO: Give an error to the user?
+                loginAttempt();
             }
             else {
                 // TODO: Give an error to the user?
@@ -214,6 +215,7 @@ function register() {
  */
 function loginAttempt() {
     var usernameCookie = getCookie("username");
+    var adminCookie = getCookie("admin");
 
     // Toggles the header body and logged in section
     // If cookie exists it will not be empty
@@ -232,7 +234,7 @@ function loginAttempt() {
       $(".comment-in").show();
 
       // If user is admin then edit post button is enabled
-      if (usernameCookie === "admin") {
+      if (adminCookie === "true") {
         $(".btn-edit").show("slow");
       }
     } else {
@@ -260,6 +262,7 @@ function logout() {
 
     // Deletes the cookie by setting the expiry date to the past
     document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     loginAttempt();
 }

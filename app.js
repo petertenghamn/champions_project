@@ -36,10 +36,10 @@ app.get('/users/get', function (req, res) {
 
 app.post('/verify', function (req, res) {
   // Method used to verify that the login information is correct
-  mysqlConnection.query("SELECT username, password FROM users WHERE username='" + req.body.username + "' AND password='" + req.body.password + "';", (err, rows, fields) => {
+  mysqlConnection.query("SELECT username, password, is_admin FROM users WHERE username='" + req.body.username + "' AND password='" + req.body.password + "';", (err, rows, fields) => {
     if (!err){
       if (rows.length > 0)
-        res.send("Valid"); // Tell the front-end the user is valid
+        res.send({ username:rows[0].username, admin:rows[0].is_admin}); // Send the user info to the front-end
       else
         res.send("In-Valid");
     }
