@@ -64,7 +64,7 @@
 
 <body>
 
-    <section class="site-content">
+    <section class="site-content" id="content">
 
         <div class="post">
 
@@ -94,18 +94,13 @@
             <button class="btn" type="button" id="btn-submit">Submit</button>
 
         </div>
-        <!--
-            // TODO:
-            // Post should have a default view which has the full description and comments
-            // If logged in as an admin, allow to switch to editing
-            // Display comments which are on the article in the full description
-            // If logged in, allow for the user to make a new comment
-            // If admin logged in, allow for removal of comment?
-        -->
+    </section>
 
-        <!-- TODO: Fill this content with the article retrieved from the DB along with comments -->
-
-
+    <!-- comments section, filled with script bellow -->
+    <section class="site-content" id="comments">
+        <div>
+            <h2>There are no comments</h2>
+        </div>
     </section>
 
 </body>
@@ -116,7 +111,40 @@
 
     <script>
         $(document).ready(function () {
+            // Need to retrieve comments and fill out a section for them...
+            // Retrieving them needs to use article_id to get the comments related to the article
+            function retrieveComments() {
+                $.ajax({
+                    url: '/comment/get/:' + <%- article_id %> + '',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        $("#comments").empty();
+                        let divHTML = '';
+                        //If retrieved successfully, fill content with the comments
+                        if (response && response.length > 0) {
+                            response.forEach(element =>
+                                divHTML +=
+                                    '<h4>' + element.date + '</h4>' +
+                                    '<div class="item">' +
+                                    '<h1>' + element.username + '</h1>' +
+                                    '<h3>' + element.comment + '</h3>' +
+                                    '<div class="item-buttons">' +
+                                    <!-- TODO: This button should only be shown if an admin is logged in -->
+                                    '<a href="http://localhost:3000/comment/delete/:' + element.id + ' class="btn-delete">Delete</a>' +
+                                    '</div></div>'
+                            );
+                        } else {
+                            divHTML +=
+                                '<div class="item">' +
+                                '<h2>There are no comments</h2>' +
+                                '</div>'
+                        }
+                        $('#comments').append(divHTML);
+                    }
+                });
+            }
 
+            retrieveComments();
         })
     </script>
 

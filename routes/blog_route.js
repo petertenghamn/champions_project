@@ -44,19 +44,24 @@ Router.get('/articles/get', function (req, res) {
     });
 });
 
-// Route to specific post where the user will have access to writing comments and admin can create new posts
+Router.get('/articles/update/:id', function (req, res) {
+    let post = req.params.id;
+    post = post.replace(':', '');
+
+
+
+    res.send("worked!");
+});
+
 Router.get('/post/:id', (req, res) => {
     const post = req.params.id;
     // Query the DB for requested article and then send the data to the front-end
-    mysqlConnection.query("SELECT article_id, date, title, article_intro, article_content, article_conclusion FROM articles WHERE article_id='" + post + "';", (err, article_rows, fields) => {
-        if (!err && article_rows.length > 0){
-            // TODO: include the comments of the article
-            // Secondary query to get comments
-
+    mysqlConnection.query("SELECT article_id, date, title, article_intro, article_content, article_conclusion FROM articles WHERE article_id='" + post + "';", (err, rows, fields) => {
+        if (!err && rows.length > 0){
             res.render('post',
                 {
-                    article_id:article_rows[0].article_id, date:dateFormat(article_rows[0].date, "mmm dd, yyyy"),
-                    title:article_rows[0].title, article_intro:article_rows[0].article_intro, article_content:article_rows[0].article_content, article_conclusion:article_rows[0].article_conclusion
+                    article_id:rows[0].article_id, date:dateFormat(rows[0].date, "mmm dd, yyyy"),
+                    title:rows[0].title, article_intro:rows[0].article_intro, article_content:rows[0].article_content, article_conclusion:rows[0].article_conclusion
                 });
         }
         else
@@ -64,13 +69,34 @@ Router.get('/post/:id', (req, res) => {
     });
 });
 
-Router.get('/comment/get', function (req, res) {
+Router.get('/comment/get/:id', function (req, res) {
+    let post = req.params.id;
+    post = post.replace(':', '');
+    // Get the comments which are related to the specific post
+    mysqlConnection.query("SELECT * FROM comments WHERE article_id='" + post + "';", (err, rows, fields) => {
+        if (!err && rows.length > 0) {
+            rows.forEach(element =>
+                element.date = dateFormat(element.date, "mmm dd, yyyy")
+            );
+            res.send(rows);
+        }
+    });
+    console.log("No comments.");
+});
+
+Router.put('/comment/put/:id', function (req, res) {
+    let post = req.params.id;
+    post = post.replace(':', '');
+
 
 
     res.send("worked!");
 });
 
-Router.put('/comment/put', function (req, res) {
+Router.put('/comment/delete/:id', function (req, res) {
+    let post = req.params.id;
+    post = post.replace(':', '');
+
 
 
     res.send("worked!");
