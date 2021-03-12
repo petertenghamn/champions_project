@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Post</title>
+    <title>Post</title>
 
     <!-- Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -48,7 +48,7 @@
                         <a href="http://localhost:3000/about">About</a>
                     </li>
                     <li class="nav-link" id="link-editing">
-                        <a href="">Editing</a>
+                        <a href="">Post</a>
                     </li>
                 </ul>
             </div>
@@ -66,40 +66,86 @@
 
     <section class="site-content">
 
-        <h1>You are editing the Post</h1>
-        <h3>To edit parts of the post simply click on the sections you want to edit and start typing. When finished click submit otherwise if you want to cancel navigate away using the top buttons or click cancel.</h3>
-    
-
-        <p class="error" id="err1">small error</p>
-        <p class="error" id="err2">small error</p>
-
         <div class="post">
 
-            <input class="edit-title" type="text" name="title" id="title" placeholder="<%-title%>">
-        
+            <h2 id="title"><%-title%></h2>
+
             <div>
-                <input class="edit-p" type="text" name="description" id="description" placeholder="<%-description%>">
+                <p id="article"><%-article_intro%></p>
+            </div>
+
+            <img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">
+
+            <div>
+                <p id="article"><%-article_content%></p>
+            </div>
+
+            <div>
+                <p id="article"><%-article_conclusion%></p>
             </div>
 
             <hr>
 
-            <!-- TODO: Comments? Optional -->
-        
         </div>
 
         <div class="container-buttons">
 
+            <!-- TODO: Should only be shown if an admin is logged in (Also should be a delete button next to each comment) -->
             <button class="btn" type="button" id="btn-submit">Submit</button>
-        
-            <a href="http://localhost:3000" class="btn-edit">CANCEL</a>
+
         </div>
-        
+        <!--
+            // TODO:
+            // Post should have a default view which has the full description and comments
+            // If logged in as an admin, allow to switch to editing
+            // Display comments which are on the article in the full description
+            // If logged in, allow for the user to make a new comment
+            // If admin logged in, allow for removal of comment?
+        -->
+
+        <!-- TODO: Fill this content with the article retrieved from the DB along with comments -->
+
+
     </section>
 
 </body>
 
 <!-- JavaScripts that need to be loaded AFTER page load -->
-<script src="../js/user.js"></script>
-<script src="../js/post.js"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/post.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+        })
+    </script>
+
+<!-- Old format kept for reference
+    <h1>You are editing the Post</h1>
+    <h3>To edit parts of the post simply click on the sections you want to edit and start typing. When finished click submit otherwise if you want to cancel navigate away using the top buttons or click cancel.</h3>
+
+
+    <p class="error" id="err1">small error</p>
+    <p class="error" id="err2">small error</p>
+
+    <div class="post">
+
+        <input class="edit-title" type="text" name="title" id="title" placeholder=" title ">
+
+        <div>
+            <input class="edit-p" type="text" name="description" id="description" placeholder=" description ">
+        </div>
+
+        <hr>
+
+    </div>
+
+    <div class="container-buttons">
+
+        <button class="btn" type="button" id="btn-submit">Submit</button>
+
+        <a href="http://localhost:3000" class="btn-edit">CANCEL</a>
+    </div>
+-->
 
 </html>

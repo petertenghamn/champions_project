@@ -1,64 +1,79 @@
 const express = require("express");
 const Router = express.Router();
 const path = require("path");
-
-// A listing of all the posts we have created with a snippet of the details of that post
-// A button should be at the bottom of each snippet stating "Read more" or similar to get the full post
-// Next to the button a number representing the number of comments could be displayed as well?
+const dateFormat = require('dateformat');
+const mysqlConnection = require("../connection");
 
 Router.get('/', (req, res) => {
+    res.render('blog');
+});
 
+Router.get('/users/get', function (req, res) {
+    // Retrieve a list of all the users within the DB
+    mysqlConnection.query("SELECT username FROM users;", (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    });
+});
 
-    // Temp data to simulate retrieving it from the DB
-    // img can just be a string to the path of the image if not possible to store gif in database
-    const tempData = [
-      {
-        img: "assets/gifs/demo_MapleStory.gif",
-        title: "Flappy Bird",
-        snippet: "An arduino based game.",
-        id: 1,
-        comments: 3,
-      },
-      {
-        img: "assets/gifs/demo_MapleStory.gif",
-        title: "Pokemon",
-        snippet: "First game group project using java.",
-        id: 2,
-        comments: 42,
-      },
-      {
-        img: "assets/gifs/demo_MapleStory.gif",
-        title: "Dungeon Delver",
-        snippet: "A turned based combat game made for android.",
-        id: 3,
-        comments: 13,
-      },
-    ];
+Router.post('/verify', function (req, res) {
+    // Method used to verify that the login information is correct
+    mysqlConnection.query("SELECT username, password, is_admin FROM users WHERE username='" + req.body.username + "' AND password='" + req.body.password + "';", (err, rows, fields) => {
+        if (!err && rows.length > 0){
+            res.send({ username:rows[0].username, admin:rows[0].is_admin}); // Send the user info to the front-end
+        }
+        else
+            res.send("In-Valid");
+    });
+});
 
-    res.render('blog', { posts: tempData })
-
-    
+Router.get('/articles/get', function (req, res) {
+    // Retrieve a list of all the articles within the DB
+    mysqlConnection.query("SELECT article_id, date, title, snippet FROM articles;", (err, rows, fields) => {
+        if (!err) {
+            rows.forEach(element =>
+                element.date = dateFormat(element.date, "mmm dd, yyyy")
+            );
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    });
 });
 
 // Route to specific post where the user will have access to writing comments and admin can create new posts
 Router.get('/post/:id', (req, res) => {
     const post = req.params.id;
+    // Query the DB for requested article and then send the data to the front-end
+    mysqlConnection.query("SELECT article_id, date, title, article_intro, article_content, article_conclusion FROM articles WHERE article_id='" + post + "';", (err, article_rows, fields) => {
+        if (!err && article_rows.length > 0){
+            // TODO: include the comments of the article
+            // Secondary query to get comments
 
-    // Temp data to simulate retrieving it from the DB
-    const tempData = [
-        {title: "Flappy Birb", description: "A arduino based game. This is totally a longer description. There were cacti!", id: 1},
-        {title: "Pokemon", description: "First game group project using java. CATCH DEM ALL! WOOOO!", id: 2},
-    ];
-
-    let found = false;
-    for (let i = 0; i < tempData.length; i++){
-        if (tempData[i].id === parseInt(post)){
-            res.render('post', { title: tempData[i].title, description: tempData[i].description })
-            found = true;
-            break;
+            res.render('post',
+                {
+                    article_id:article_rows[0].article_id, date:dateFormat(article_rows[0].date, "mmm dd, yyyy"),
+                    title:article_rows[0].title, article_intro:article_rows[0].article_intro, article_content:article_rows[0].article_content, article_conclusion:article_rows[0].article_conclusion
+                });
         }
-    }
-    if (!found) res.send('Post could not be found. ID left out of tempt test data on purpose.'); // Error message or 404
+        else
+            res.send('Post could not be found. ID left out of tempt test data on purpose.'); // Error message or 404
+    });
+});
+
+Router.get('/comment/get', function (req, res) {
+
+
+    res.send("worked!");
+});
+
+Router.put('/comment/put', function (req, res) {
+
+
+    res.send("worked!");
 });
 
 module.exports = Router;

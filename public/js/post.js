@@ -13,10 +13,11 @@ $(document).ready(function () {
   $(btn_submit).click(function () {
     console.log("Clicked");
 
-    var valid = validateLogin();
+    var valid = validateSubmit();
 
     if (valid) {
-      // TODO edit post when submit is clicked
+        // TODO edit post when submit is clicked
+        // TODO: Send a post to publish the data and update the DB
     }
   });
 });
@@ -26,7 +27,7 @@ $(document).ready(function () {
  * 
  * return valid true: validation successful false: validation failed
  */
-function validateLogin() {
+function validateSubmit() {
     var title = $("#title").val();
     var description = $("#description").val();
 

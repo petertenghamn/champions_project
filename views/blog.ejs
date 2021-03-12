@@ -164,7 +164,6 @@
                     <div class="glide__track" data-glide-el="track" id="glide__track_id">
                         <ul class="glide__slides">
                             <li class="glide__slide">
-                                <!-- TODO get these from the DB -->
                                 <!-- Image could just be saved as the path to the image -->
                                 <img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">
                                 <h3>Username 1</h3>
@@ -211,61 +210,14 @@
         </section>
 
         <section class="site-content" id="content">
-
-
-
-            <%
-    if(posts.length!=0){
-        posts.forEach(function(data){
-            var id = data.id%>
-
-            <h4>Sept 13, 2020</h4>
-
+            <!-- Placeholder content to be replaced via DB script -->
             <div class="item">
-
-                <img src="<%=data.img%>" alt="Demo of Project NOT Loaded">
-
-                <h1><%=data.title%></h1>
-                <h3><%=data.snippet%></h3>
-                <hr>
-
-                <h2>Comments</h2>
-                <p id="p-comments<%=id%>"><%=data.comments%></p>
-                <hr>
-
-                <!-- This should only be displayed if the user is logged in -->
-                <p class="error" id="errComment<%=id%>">small error</p>
-
-                <!-- This should only be displayed if the user is logged in -->
-                <input class="txt-in comment-in" type="text" name="comment" id="comment<%=id%>" placeholder="Type your Comment">
-                
-                <div class="item-buttons">
-
-                    <!-- This should only be displayed if the user is logged in -->
-                    <button class="btn btn-comment" id="btn-comment<%=id%>">
-                        Comment
-                    </button>
-
-                    <!-- This should only be displayed if the user logged in is an admin -->
-                    <a href="http://localhost:3000/post/<%=id%>" class="btn-edit">Edit Post <%=id%></a>
-                </div>
-            </div>
-
-            <% })
-    } else { %>
-
-            <div class="item">
-
                 <h1>Something Went Wrong</h1>
                 <img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"
                     alt="Oops">
                 <p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about
                     it! </p>
-
             </div>
-
-            <% } %>
-
         </section>
 
         <div class="section-padding"></div>
@@ -275,10 +227,11 @@
 <!-- JavaScripts that need to be loaded AFTER page load -->
     <script src="js/user.js"></script>
 
-    <!-- Carousel update from DB -->
+    <!-- Javascript which runs after document is loaded -->
     <script>
         $(document).ready(function () {
-            function update() {
+            // User Carousel Update from the DB
+            function updateCarousel() {
                 $.ajax({
                     url: '/users/get',
                     contentType: 'application/json',
@@ -317,8 +270,90 @@
                     }
                 })
             }
-            update();
+
+            // Get articles and their base descriptions and a button to read more
+            function retrieveArticles() {
+                $.ajax({
+                    url: '/articles/get',
+                    contentType: 'application/json',
+                    success: function(response){
+                        $("#content").empty();
+                        let divHTML = '';
+                        //If retrieved successfully, fill content with the articles
+                        if (response && response.length > 0){
+                            response.forEach(element =>
+                                divHTML +=
+                                    '<h4>' + element.date + '</h4>' +
+                                    '<div class="item">' +
+                                    '<img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">' +
+                                    '<h1>' + element.title + '</h1>' +
+                                    '<h3>' + element.snippet + '</h3>' +
+                                    '<div class="item-buttons">' +
+                                    '<a href="http://localhost:3000/post/' + element.article_id + ' class="btn-edit">Read More</a>' +
+                                    '</div></div>'
+                            );
+                        }
+                        else
+                        {
+                            divHTML +=
+                                '<div class="item">\n' +
+                                '<h1>Something Went Wrong</h1>\n' +
+                                '<img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"\n' +
+                                'alt="Oops">\n' +
+                                '<p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about\n' +
+                                'it! </p>\n' +
+                                '</div>'
+                        }
+                        $('#content').append(divHTML);
+                    },
+                    fail: function () {
+                        $("#content").empty();
+                        var divHTML =
+                            '<div class="item">\n' +
+                            '<h1>Something Went Wrong</h1>\n' +
+                            '<img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"\n' +
+                            'alt="Oops">\n' +
+                            '<p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about\n' +
+                            'it! </p>\n' +
+                            '</div>'
+                        $('#content').append(divHTML);
+                    }
+                })
+            }
+
+            updateCarousel();
+            retrieveArticles();
         })
     </script>
+
+<!-- Old format kept for reference
+<h4>Sept 13, 2020</h4>
+
+<div class="item">
+
+    <img src="data.img" alt="Demo of Project NOT Loaded">
+
+    <h1>data.title</h1>
+    <h3>data.snippet</h3>
+    <hr>
+
+    <h2>Comments</h2>
+    <p id="p-comments data.id">data.comments</p>
+    <hr>
+
+    <p class="error" id="errComment data.id">small error</p>
+
+    <input class="txt-in comment-in" type="text" name="comment" id="comment data.id" placeholder="Type your Comment">
+
+    <div class="item-buttons">
+
+        <button class="btn btn-comment" id="btn-comment data.id">
+            Comment
+        </button>
+
+        <a href="http://localhost:3000/post/ data.id" class="btn-edit">Edit Post data.id</a>
+    </div>
+</div>
+-->
 
 </html>
