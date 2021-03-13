@@ -22,7 +22,7 @@ USE `champions_db` ;
 CREATE TABLE IF NOT EXISTS `champions_db`.`users` (
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `is_admin` TINYINT(1) NOT NULL,
+  `is_admin` TINYINT(1) NOT NULL DEFAULT ('0'),
   PRIMARY KEY (`username`))
 ENGINE = InnoDB;
 
@@ -32,17 +32,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `champions_db`.`articles` (
   `article_id` INT NOT NULL AUTO_INCREMENT,
-  `users_username` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `title` VARCHAR(45) NOT NULL,
   `snippet` VARCHAR(240) NOT NULL,
   `article_intro` VARCHAR(2400) NOT NULL,
   `article_content` VARCHAR(2400) NOT NULL,
   `article_conclusion` VARCHAR(2400) NOT NULL,
-  INDEX `fk_articles_users1_idx` (`users_username` ASC) VISIBLE,
+  INDEX `fk_articles_users1_idx` (`username` ASC) VISIBLE,
   PRIMARY KEY (`article_id`),
   CONSTRAINT `fk_articles_users1`
-    FOREIGN KEY (`users_username`)
+    FOREIGN KEY (`username`)
     REFERENCES `champions_db`.`users` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -74,6 +74,23 @@ CREATE TABLE IF NOT EXISTS `champions_db`.`comments` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `champions_db`.`brainstorming`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `champions_db`.`brainstorming` (
+  `comment_id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `comment` VARCHAR(120) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  CONSTRAINT `fk_brainstorming_users1`
+    FOREIGN KEY (`username`)
+    REFERENCES `champions_db`.`users` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -85,11 +102,13 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO users (username, password, is_admin) VALUES
 ('peter', 'pass', 1),
-('ojvind', '1234', 1),
-('bill', '1234', 0),
-('bob', '1234', 0);
+('ojvind', '1234', 1);
 
-INSERT INTO articles (users_username, date, title, snippet, article_intro, article_content, article_conclusion) VALUES
+INSERT INTO users (username, password) VALUES
+('bill', '1234'),
+('bob', '1234');
+
+INSERT INTO articles (username, date, title, snippet, article_intro, article_content, article_conclusion) VALUES
 ('peter', '2020-9-09', 'Flappy Bird', 'A simple ardiuno project we worked on.', 'Article intro!', 'The arduino game was made on a small screen which was played using a joystick where the goal was to survive through 10 levels where the player needs to dodge obsticles.', 'Article conclusion!'),
 ('ojvind', '2021-1-06', 'Pokemon', 'First game group project using java.', 'Article intro!', 'Article content!', 'Article conclusion!'),
 ('peter', '2021-3-01', 'Dungeon Delver', 'A turned based combat game made for android.', 'Article intro!', 'Article content!', 'Article conclusion!');
@@ -103,3 +122,6 @@ INSERT INTO comments (article_id, username, date, comment) VALUES
 (2, 'bob', '2021-1-11', 'Hello! Im Bob!'),
 (3, 'bill', '2021-3-03', 'How was this to make?'),
 (3, 'ojvind', '2021-3-05', 'It was a hassle, but keeping some concepts simple made it fun.');
+
+INSERT INTO brainstorming (username, date, comment) VALUES
+('ojvind', '2021-3-10', 'First!');

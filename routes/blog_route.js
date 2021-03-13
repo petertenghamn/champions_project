@@ -30,6 +30,29 @@ Router.post('/verify', function (req, res) {
     });
 });
 
+Router.post('/register', function (req, res) {
+    let username = req.body.username;
+    // Check the username isn't already being used
+    let userQuery = "SELECT username FROM users WHERE username='" + username + "';";
+    mysqlConnection.query(userQuery, (u_err, u_rows, u_result) => {
+        if (!u_err && u_rows.length === 0) {
+            let password = req.body.password;
+            let query = "INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "')";
+            mysqlConnection.query(query, (err, result) => {
+                if (!err) {
+                    res.send("Success!");
+                }
+                else {
+                    res.send("In-Valid!");
+                }
+            })
+        }
+        else {
+            res.send("In-Valid!");
+        }
+    });
+});
+
 Router.get('/articles/get', function (req, res) {
     // Retrieve a list of all the articles within the DB
     mysqlConnection.query("SELECT article_id, date, title, snippet FROM articles;", (err, rows, fields) => {

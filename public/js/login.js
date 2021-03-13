@@ -168,8 +168,6 @@ function validateRegistration() {
 
 /**
  * Logs in the user and adds a cookie used for checking if the user is logged in
- * 
- * TODO: retrieve the username from the DB
  */
 function login() {
     var username = $("#username").val();
@@ -180,7 +178,11 @@ function login() {
         type: "POST",
         data: { username: username, password: pass},
         success: function (response, status, http) {
-            if (response) {
+            if (response === "In-Valid") {
+                $(err1).show("slow");
+                $("#err1").text("Incorrect username or password!");
+            }
+            else {
                 // Creates a cookie stored in local memory (Client side) is deleted when browser is closed
                 document.cookie = "username=" + response.username + "; path=/";
                 if (response.admin === 0)
@@ -190,22 +192,31 @@ function login() {
 
                 loginAttempt();
             }
-            else {
-                // TODO: Give an error to the user?
-            }
         }
     })
 }
 
 /**
  * Registers the user and calls the login() function
- * 
- * TODO: Register the user in the database
  */
 function register() {
-    var username = $("#username").val(); // The currently typed username
+    var username = $("#username").val();  // The currently typed username
+    var pass = $("#password").val();
 
-    login();
+    $.ajax({
+        url: "/register",
+        type: "POST",
+        data: { username: username, password: pass},
+        success: function (response, status, http) {
+            if (response === "Success!") {
+                login();  // If made successfully, login using username and password
+            }
+            else {
+                $(err1).show("slow");
+                $("#err1").text("Username already in use!");
+            }
+        }
+    })
 }
 
 /**
