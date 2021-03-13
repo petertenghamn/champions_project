@@ -1,64 +1,137 @@
 const express = require("express");
 const Router = express.Router();
 const path = require("path");
-
-// A listing of all the posts we have created with a snippet of the details of that post
-// A button should be at the bottom of each snippet stating "Read more" or similar to get the full post
-// Next to the button a number representing the number of comments could be displayed as well?
+const dateFormat = require('dateformat');
+const mysqlConnection = require("../connection");
 
 Router.get('/', (req, res) => {
-
-
-    // Temp data to simulate retrieving it from the DB
-    // img can just be a string to the path of the image if not possible to store gif in database
-    const tempData = [
-      {
-        img: "assets/gifs/demo_MapleStory.gif",
-        title: "Flappy Bird",
-        snippet: "An arduino based game.",
-        id: 1,
-        comments: 3,
-      },
-      {
-        img: "assets/gifs/demo_MapleStory.gif",
-        title: "Pokemon",
-        snippet: "First game group project using java.",
-        id: 2,
-        comments: 42,
-      },
-      {
-        img: "assets/gifs/demo_MapleStory.gif",
-        title: "Dungeon Delver",
-        snippet: "A turned based combat game made for android.",
-        id: 3,
-        comments: 13,
-      },
-    ];
-
-    res.render('blog', { posts: tempData })
-
-    
+    res.render('blog');
 });
 
-// Route to specific post where the user will have access to writing comments and admin can create new posts
+Router.get('/users/get', function (req, res) {
+    // Retrieve a list of all the users within the DB
+    mysqlConnection.query("SELECT username FROM users;", (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    });
+});
+
+Router.post('/verify', function (req, res) {
+    // Method used to verify that the login information is correct
+    mysqlConnection.query("SELECT username, password, is_admin FROM users WHERE username='" + req.body.username + "' AND password='" + req.body.password + "';", (err, rows, fields) => {
+        if (!err && rows.length > 0){
+            res.send({ username:rows[0].username, admin:rows[0].is_admin}); // Send the user info to the front-end
+        }
+        else
+            res.send("In-Valid");
+    });
+});
+
+Router.get('/articles/get', function (req, res) {
+    // Retrieve a list of all the articles within the DB
+    mysqlConnection.query("SELECT article_id, date, title, snippet FROM articles;", (err, rows, fields) => {
+        if (!err) {
+            rows.forEach(element =>
+                element.date = dateFormat(element.date, "mmm dd, yyyy")
+            );
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    });
+});
+
+Router.put('/articles/update/:id&:username&:title&:article_intro&:article_content&:article_conclusion', function (req, res) {
+    let username = (req.params.username).split(":")[1];
+    // Verify that the user is an admin, if result is good, allow for the article update
+    let userQuery = "SELECT username FROM users WHERE username='" + username + "' AND is_admin='1';";
+    mysqlConnection.query(userQuery, (u_err, u_rows, u_result) => {
+        if (!u_err && u_rows.length > 0) {
+            let article = (req.params.id).split(":")[1];
+            let title = (req.params.title).split(":")[1];
+            let intro = (req.params.article_intro).split(":")[1];
+            let content = (req.params.article_content).split(":")[1];
+            let conclusion = (req.params.article_conclusion).split(":")[1];
+            // Update the article on the DB
+            let query = "UPDATE articles SET title='" + title
+                + "', article_intro='" + intro
+                + "', article_content='" + content
+                + "', article_conclusion='" + conclusion
+                + "' WHERE article_id='" + article + "';";
+            mysqlConnection.query(query, (err, result) => {
+                if (err) throw err;
+                console.log("Removed 1 comment from the DB.");
+                res.send("Success!");
+            });
+        }
+    });
+});
+
 Router.get('/post/:id', (req, res) => {
     const post = req.params.id;
-
-    // Temp data to simulate retrieving it from the DB
-    const tempData = [
-        {title: "Flappy Birb", description: "A arduino based game. This is totally a longer description. There were cacti!", id: 1},
-        {title: "Pokemon", description: "First game group project using java. CATCH DEM ALL! WOOOO!", id: 2},
-    ];
-
-    let found = false;
-    for (let i = 0; i < tempData.length; i++){
-        if (tempData[i].id === parseInt(post)){
-            res.render('post', { title: tempData[i].title, description: tempData[i].description })
-            found = true;
-            break;
+    // Query the DB for requested article and then send the data to the front-end
+    mysqlConnection.query("SELECT article_id, date, title, article_intro, article_content, article_conclusion FROM articles WHERE article_id='" + post + "';", (err, rows, fields) => {
+        if (!err && rows.length > 0){
+            res.render('post',
+                {
+                    article_id:rows[0].article_id, date:dateFormat(rows[0].date, "mmm dd, yyyy"),
+                    title:rows[0].title, article_intro:rows[0].article_intro, article_content:rows[0].article_content, article_conclusion:rows[0].article_conclusion
+                });
         }
+        else
+            res.send('Post could not be found. ID left out of tempt test data on purpose.'); // Error message or 404
+    });
+});
+
+Router.get('/comment/get/:id', function (req, res) {
+    let post = req.params.id;
+    post = post.replace(':', '');
+    // Get the comments which are related to the specific post
+    mysqlConnection.query("SELECT * FROM comments WHERE article_id='" + post + "';", (err, rows, fields) => {
+        if (!err && rows.length > 0) {
+            rows.forEach(element =>
+                element.date = dateFormat(element.date, "mmm dd, yyyy")
+            );
+            res.send(rows);
+        }
+        else {
+            console.log("No comments found.");
+        }
+    });
+});
+
+Router.put('/comment/put/:article_id&:username&:comment', function (req, res) {
+    let post = (req.params.article_id).split(":")[1];
+    let username = (req.params.username).split(":")[1];
+    let comment = (req.params.comment).split(":")[1];
+    if (username!=""&&comment!=""){
+        let query = "INSERT INTO comments (article_id, username, date, comment) VALUES ('" + post + "', '" + username + "', curdate(), '" + comment + "');"
+        mysqlConnection.query(query, (err, result) => {
+            if (err) throw err;
+            console.log("Inserted: " + post + " | " + username + " | " + comment);
+        });
     }
-    if (!found) res.send('Post could not be found. ID left out of tempt test data on purpose.'); // Error message or 404
+});
+
+Router.put('/comment/delete/:id&:username&:article_id', function (req, res) {
+    let username = (req.params.username).split(":")[1];
+    // Verify that the user is an admin, if result is good, remove the comment
+    let userQuery = "SELECT username FROM users WHERE username='" + username + "' AND is_admin='1';";
+    mysqlConnection.query(userQuery, (u_err, u_rows, u_result) => {
+        if (!u_err && u_rows.length > 0){
+            let article = (req.params.article_id).split(":")[1];
+            let comment = (req.params.id).split(":")[1];
+            // Remove the comment from the DB
+            let query = "DELETE FROM comments WHERE comment_id='" + comment + "' AND article_id='" + article + "';";
+            mysqlConnection.query(query, (err, result) => {
+                if (err) throw err;
+                console.log("Removed 1 comment from the DB.");
+            });
+        }
+    });
 });
 
 module.exports = Router;

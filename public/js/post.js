@@ -1,5 +1,3 @@
-const btn_submit = document.querySelector("#btn-submit");
-
 $(document).ready(function () {
 
   // This hides the different error messages when clicked
@@ -9,16 +7,6 @@ $(document).ready(function () {
 
     $("#" + id).hide("slow");
   });
-
-  $(btn_submit).click(function () {
-    console.log("Clicked");
-
-    var valid = validateLogin();
-
-    if (valid) {
-      // TODO edit post when submit is clicked
-    }
-  });
 });
 
 /**
@@ -26,9 +14,11 @@ $(document).ready(function () {
  * 
  * return valid true: validation successful false: validation failed
  */
-function validateLogin() {
-    var title = $("#title").val();
-    var description = $("#description").val();
+function validateSubmit() {
+    var title = $("#edt_title").val();
+    var intro = $("#edt_article_intro").val();
+    var content = $("#edt_article_content").val();
+    var conclusion = $("#edt_article_conclusion").val();
 
     // In order title, description
     var validated = [false, false];
@@ -42,13 +32,31 @@ function validateLogin() {
       validated[0] = true;
     }
 
-    // description
-    if (!description.trim()) {
+    // intro
+    if (!intro.trim()) {
       $(err2).show("slow");
-      $("#err2").text("Description can NOT be Empty!");
+      $("#err2").text("Intro can NOT be Empty!");
     } else {
       $(err2).hide("slow");
       validated[1] = true;
+    }
+
+    // content
+    if (!content.trim()) {
+        $(err3).show("slow");
+        $("#err3").text("Content can NOT be Empty!");
+    } else {
+        $(err3).hide("slow");
+        validated[1] = true;
+    }
+
+    // intro
+    if (!conclusion.trim()) {
+        $(err4).show("slow");
+        $("#err4").text("Conclusion can NOT be Empty!");
+    } else {
+        $(err4).hide("slow");
+        validated[1] = true;
     }
 
     var valid = true;

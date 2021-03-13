@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Post</title>
+    <title>Post</title>
 
     <!-- Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -48,7 +48,7 @@
                         <a href="http://localhost:3000/about">About</a>
                     </li>
                     <li class="nav-link" id="link-editing">
-                        <a href="">Editing</a>
+                        <a href="">Post</a>
                     </li>
                 </ul>
             </div>
@@ -64,42 +64,182 @@
 
 <body>
 
-    <section class="site-content">
-
-        <h1>You are editing the Post</h1>
-        <h3>To edit parts of the post simply click on the sections you want to edit and start typing. When finished click submit otherwise if you want to cancel navigate away using the top buttons or click cancel.</h3>
-    
-
-        <p class="error" id="err1">small error</p>
-        <p class="error" id="err2">small error</p>
+    <section class="site-content" id="content">
 
         <div class="post">
 
-            <input class="edit-title" type="text" name="title" id="title" placeholder="<%-title%>">
-        
+            <p class="error" id="err1">small error</p>
+            <p class="error" id="err2">small error</p>
+            <p class="error" id="err3">small error</p>
+            <p class="error" id="err4">small error</p>
+
+            <h2 class="article" id="title"><%-title%></h2>
+            <input class="edit-article" type="text" name="title" id="edt_title" value="<%-title%>" style="display: none">
+
             <div>
-                <input class="edit-p" type="text" name="description" id="description" placeholder="<%-description%>">
+                <p class="article" id="article_intro"><%-article_intro%></p>
+                <input class="edit-article" type="text" name="article_intro" id="edt_article_intro" value="<%-article_intro%>" style="display: none">
+            </div>
+
+            <img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">
+
+            <div>
+                <p class="article" id="article_content"><%-article_content%></p>
+                <input class="edit-article" type="text" name="article_content" id="edt_article_content" value="<%-article_content%>" style="display: none">
+            </div>
+
+            <div>
+                <p class="article" id="article_conclusion"><%-article_conclusion%></p>
+                <input class="edit-article" type="text" name="article_conclusion" id="edt_article_conclusion" value="<%-article_conclusion%>" style="display: none">
             </div>
 
             <hr>
 
-            <!-- TODO: Comments? Optional -->
-        
+            <!-- TODO: Should only be shown if an admin is logged in (Also should be a delete button next to each comment only usable if logged in as admin) -->
+            <button class="btn" type="button" id="btn-edit" onclick="toggleArticleEdit()">Edit</button>
+            <!-- TODO: fix this button to use the intro,content,conclusion (when clicked call a local function for now, to get article id) -->
+            <button class="btn" type="button" id="btn-submit" onclick="submitArticleEdit('<%-article_id%>')">Submit</button>
+
         </div>
 
-        <div class="container-buttons">
+        <div class="post">
+            <h2>Comments</h2>
 
-            <button class="btn" type="button" id="btn-submit">Submit</button>
-        
-            <a href="http://localhost:3000" class="btn-edit">CANCEL</a>
+            <p class="error" id="errComment">small error</p>
+
+            <input class="txt-in comment-in" type="text" name="comment" id="new-comment" placeholder="Type your Comment">
+
+            <div class="container-buttons">
+                <!-- TODO: Should only be shown if logged into an account -->
+                <button class="btn btn-comment" id="btn-comment" onclick="newComment('<%-article_id%>')">Comment</button>
+            </div>
+
+            <!-- comments section, filled with script bellow -->
+            <section class="site-content" id="comments">
+                <div>
+                    <h2>There are no comments</h2>
+                </div>
+            </section>
         </div>
-        
     </section>
 
 </body>
 
 <!-- JavaScripts that need to be loaded AFTER page load -->
-<script src="../js/user.js"></script>
-<script src="../js/post.js"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/post.js"></script>
+
+    <script>
+        // Allows for the user to edit the article contents (TODO: only admins should be allowed to)
+        let edit = false;
+        function toggleArticleEdit() {
+            let title = document.getElementById("title");
+            let article_intro = document.getElementById("article_intro");
+            let article_content = document.getElementById("article_content");
+            let article_conclusion = document.getElementById("article_conclusion");
+            let article = [ title, article_intro, article_content, article_conclusion ];
+
+            let edt_title = document.getElementById("edt_title");
+            let edt_article_intro = document.getElementById("edt_article_intro");
+            let edt_article_content = document.getElementById("edt_article_content");
+            let edt_article_conclusion = document.getElementById("edt_article_conclusion");
+            let edt_article = [ edt_title, edt_article_intro, edt_article_content, edt_article_conclusion ];
+
+            if (edit){
+                article.forEach(element => element.style.cssText = "display: block; position: center")
+                edt_article.forEach(element => element.style.display = "none")
+            }
+            else {
+                article.forEach(element => element.style.display = "none")
+                edt_article.forEach(element => element.style.cssText = "display: block; position: center")
+            }
+            edit = !edit;
+        }
+
+        function submitArticleEdit(article_id) {
+            let username = getCookie("username");
+            if (username!="") {
+                let title = document.getElementById("edt_title").value;
+                let intro = document.getElementById("edt_article_intro").value;
+                let content = document.getElementById("edt_article_content").value;
+                let conclusion = document.getElementById("edt_article_conclusion").value;
+                if (validateSubmit()) {
+                    $.ajax({
+                        url: '/articles/update/id:' + article_id + '&username:' + username + '&title:' + title + '&article_intro:' + intro + '&article_content:' + content + '&article_conclusion:' + conclusion + '',
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                }
+            }
+        }
+
+        function delComment(comment_id, article_id){
+            let username = getCookie("username");
+            if (username!="") {
+                $.ajax({
+                    url: '/comment/delete/id:' + comment_id + '&username:' + username + '&article_id:' + article_id,
+                    type: 'PUT',
+                    contentType: 'application/json'
+                });
+                setTimeout(retrieveComments, 500); // Refresh the comments after 1/2 second
+            }
+        }
+
+        function newComment(article_id){
+            let username = getCookie("username");
+            if (username!="") {
+                let comment = document.getElementById("new-comment").value;
+                if (validateComment()) {
+                    $.ajax({
+                        url: '/comment/put/article_id:' + article_id + '&username:' + username + '&comment:' + comment + '',
+                        type: 'PUT',
+                        contentType: 'application/json'
+                    });
+                    document.getElementById("new-comment").value = "";
+                    setTimeout(retrieveComments, 500); // Refresh the comments after 1/2 second
+                }
+            }
+        }
+
+        // Need to retrieve comments and fill out a section for them...
+        // Retrieving them needs to use article_id to get the comments related to the article
+        function retrieveComments() {
+            $.ajax({
+                url: '/comment/get/:' + <%-article_id%> + '',
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#comments").empty();
+                    let divHTML = '';
+                    //If retrieved successfully, fill content with the comments
+                    if (response && response.length > 0) {
+                        response.forEach(element =>
+                            divHTML +=
+                                '<h4>' + element.date + '</h4>' +
+                                '<div class="item">' +
+                                '<h1>' + element.username + '</h1>' +
+                                '<p>' + element.comment + '</p>' +
+                                '<div class="item-buttons">' +
+                                <!-- TODO: This button should only be shown if an admin is logged in -->
+                                '<button class="btn" type="button" id="btn-comment-del" onclick="delComment(' + element.comment_id + ', ' + <%-article_id%> + ')">Delete</button>' +
+                                '</div></div>'
+                        );
+                    } else {
+                        divHTML +=
+                            '<div class="item">' +
+                            '<h2>There are no comments</h2>' +
+                            '</div>'
+                    }
+                    $('#comments').append(divHTML);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            retrieveComments();
+        })
+    </script>
 
 </html>

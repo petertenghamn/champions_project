@@ -1,11 +1,10 @@
-/*
 const mysql = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
-    database : "temp_db",
+    database : "champions_db",
     multipleStatements : true
 });
 
@@ -15,4 +14,3 @@ mysqlConnection.connect(function(err) {
 });
 
 module.exports = mysqlConnection;
-*/
