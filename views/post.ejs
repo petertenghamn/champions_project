@@ -68,38 +68,52 @@
 
         <div class="post">
 
+            <p class="error" id="err1">small error</p>
+            <p class="error" id="err2">small error</p>
+
             <h2 id="title"><%-title%></h2>
 
             <div>
-                <p id="article"><%-article_intro%></p>
+                <p id="article_intro"><%-article_intro%></p>
             </div>
 
             <img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">
 
             <div>
-                <p id="article"><%-article_content%></p>
+                <p id="article_content"><%-article_content%></p>
             </div>
 
             <div>
-                <p id="article"><%-article_conclusion%></p>
+                <p id="article_conclusion"><%-article_conclusion%></p>
             </div>
 
             <hr>
 
-        </div>
-
-        <div class="container-buttons">
-
-            <!-- TODO: Should only be shown if an admin is logged in (Also should be a delete button next to each comment) -->
+            <!-- TODO: Should only be shown if an admin is logged in (Also should be a delete button next to each comment only usable if logged in as admin) -->
+            <button class="btn" type="button" id="btn-edit">Edit</button>
+            <!-- TODO: fix this button to use the intro,content,conclusion (when clicked call a local function for now, to get article id) -->
             <button class="btn" type="button" id="btn-submit">Submit</button>
 
         </div>
-    </section>
 
-    <!-- comments section, filled with script bellow -->
-    <section class="site-content" id="comments">
-        <div>
-            <h2>There are no comments</h2>
+        <div class="post">
+            <h2>Comments</h2>
+
+            <p class="error" id="errComment">small error</p>
+
+            <input class="txt-in comment-in" type="text" name="comment" id="new-comment" placeholder="Type your Comment">
+
+            <div class="container-buttons">
+                <!-- TODO: Should only be shown if logged into an account -->
+                <button class="btn btn-comment" id="btn-comment" onclick="newComment('<%-article_id%>')">Comment</button>
+            </div>
+
+            <!-- comments section, filled with script bellow -->
+            <section class="site-content" id="comments">
+                <div>
+                    <h2>There are no comments</h2>
+                </div>
+            </section>
         </div>
     </section>
 
@@ -110,40 +124,77 @@
     <script src="../js/post.js"></script>
 
     <script>
-        $(document).ready(function () {
-            // Need to retrieve comments and fill out a section for them...
-            // Retrieving them needs to use article_id to get the comments related to the article
-            function retrieveComments() {
-                $.ajax({
-                    url: '/comment/get/:' + <%- article_id %> + '',
-                    contentType: 'application/json',
-                    success: function (response) {
-                        $("#comments").empty();
-                        let divHTML = '';
-                        //If retrieved successfully, fill content with the comments
-                        if (response && response.length > 0) {
-                            response.forEach(element =>
-                                divHTML +=
-                                    '<h4>' + element.date + '</h4>' +
-                                    '<div class="item">' +
-                                    '<h1>' + element.username + '</h1>' +
-                                    '<h3>' + element.comment + '</h3>' +
-                                    '<div class="item-buttons">' +
-                                    <!-- TODO: This button should only be shown if an admin is logged in -->
-                                    '<a href="http://localhost:3000/comment/delete/:' + element.id + ' class="btn-delete">Delete</a>' +
-                                    '</div></div>'
-                            );
-                        } else {
-                            divHTML +=
-                                '<div class="item">' +
-                                '<h2>There are no comments</h2>' +
-                                '</div>'
-                        }
-                        $('#comments').append(divHTML);
-                    }
-                });
-            }
+        // TODO: Change components to allow admin to change article details
+        function editArticle() {
 
+        }
+
+        function submitArticleEdit() {
+
+        }
+
+        function delComment(comment_id, article_id){
+            let username = getCookie("username");
+            if (username!="") {
+                $.ajax({
+                    url: '/comment/delete/id:' + comment_id + '&username:' + username + '&article_id:' + article_id,
+                    type: 'PUT',
+                    contentType: 'application/json'
+                });
+                setTimeout(retrieveComments, 500); // Refresh the comments after 1/2 second
+            }
+        }
+
+        function newComment(article_id){
+            let username = getCookie("username");
+            if (username!="") {
+                let comment = document.getElementById("new-comment").value;
+                if (validateComment(comment)) {
+                    $.ajax({
+                        url: '/comment/put/article_id:' + article_id + '&username:' + username + '&comment:' + comment + '',
+                        type: 'PUT',
+                        contentType: 'application/json'
+                    });
+                    document.getElementById("new-comment").value = "";
+                    setTimeout(retrieveComments, 500); // Refresh the comments after 1/2 second
+                }
+            }
+        }
+
+        // Need to retrieve comments and fill out a section for them...
+        // Retrieving them needs to use article_id to get the comments related to the article
+        function retrieveComments() {
+            $.ajax({
+                url: '/comment/get/:' + <%-article_id%> + '',
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#comments").empty();
+                    let divHTML = '';
+                    //If retrieved successfully, fill content with the comments
+                    if (response && response.length > 0) {
+                        response.forEach(element =>
+                            divHTML +=
+                                '<h4>' + element.date + '</h4>' +
+                                '<div class="item">' +
+                                '<h1>' + element.username + '</h1>' +
+                                '<p>' + element.comment + '</p>' +
+                                '<div class="item-buttons">' +
+                                <!-- TODO: This button should only be shown if an admin is logged in -->
+                                '<button class="btn" type="button" id="btn-comment-del" onclick="delComment(' + element.comment_id + ', ' + <%-article_id%> + ')">Delete</button>' +
+                                '</div></div>'
+                        );
+                    } else {
+                        divHTML +=
+                            '<div class="item">' +
+                            '<h2>There are no comments</h2>' +
+                            '</div>'
+                    }
+                    $('#comments').append(divHTML);
+                }
+            });
+        }
+
+        $(document).ready(function () {
             retrieveComments();
         })
     </script>

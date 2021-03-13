@@ -53,14 +53,14 @@ ENGINE = InnoDB;
 -- Table `champions_db`.`comments`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `champions_db`.`comments` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `comment_id` INT NOT NULL AUTO_INCREMENT,
   `article_id` INT NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `comment` VARCHAR(120) NOT NULL,
   INDEX `fk_comments_articles1_idx` (`article_id` ASC) VISIBLE,
   INDEX `fk_comments_users1_idx` (`username` ASC) VISIBLE,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`comment_id`),
   CONSTRAINT `fk_comments_articles1`
     FOREIGN KEY (`article_id`)
     REFERENCES `champions_db`.`articles` (`article_id`)

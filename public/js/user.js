@@ -9,20 +9,6 @@ $(document).ready(function () {
         console.log("click");
         randomizePicture();
     });
-
-    $("[id^=btn-comment]").click(function () {
-
-        // Gets the ID of the button that was clicked
-        var id_Comment = $(event.target)[0].id;
-
-        // Gets only the number ID of the button
-        var id = id_Comment.substring("btn-comment".length);
-
-        if (validateComment(id)) {
-            uploadComment(id);
-        }
-
-    });
 });
 
 /**
@@ -79,12 +65,11 @@ function setPicture(){
  * 
  * @param {The ID of the post} id 
  */
-function validateComment(id) {
-    var comment = $("#comment" + id).val();
-    var errorContainer = "#errComment" + id;
+function validateComment() {
+    var comment = $("#new-comment").val();
+    var errorContainer = "#errComment";
 
     var valid = true;
-    console.log(comment)
 
     if (!comment.trim()) {
 
@@ -99,26 +84,4 @@ function validateComment(id) {
     }
 
     return valid;
-}
-
-/**
- *  Uploads the comment to the database
- */
-function uploadComment() {
-    var comment = $("#comment" + id).val();
-
-    // TODO upload comment to DB
-
-    // Ajax call to update the comment section
-    $.ajax({
-        type: "PUT",
-        url: "/comment",
-        success: function (res) {
-
-            // Where the res of the put /comment ends up
-            $("#p-comments" + id)
-                .html(res)
-                .delay(2000); // The delay is there just incase
-        },
-    });
 }

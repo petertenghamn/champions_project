@@ -44,7 +44,7 @@ Router.get('/articles/get', function (req, res) {
     });
 });
 
-Router.get('/articles/update/:id', function (req, res) {
+Router.get('/articles/update/:id&:title&:article_intro&:article_content&:article_conclusion', function (req, res) {
     let post = req.params.id;
     post = post.replace(':', '');
 
@@ -80,26 +80,41 @@ Router.get('/comment/get/:id', function (req, res) {
             );
             res.send(rows);
         }
+        else {
+            console.log("No comments found.");
+        }
     });
-    console.log("No comments.");
 });
 
-Router.put('/comment/put/:id', function (req, res) {
-    let post = req.params.id;
-    post = post.replace(':', '');
-
-
-
-    res.send("worked!");
+Router.put('/comment/put/:article_id&:username&:comment', function (req, res) {
+    let post = (req.params.article_id).split(":")[1];
+    let username = (req.params.username).split(":")[1];
+    let comment = (req.params.comment).split(":")[1];
+    if (username!=""&&comment!=""){
+        let query = "INSERT INTO comments (article_id, username, date, comment) VALUES ('" + post + "', '" + username + "', curdate(), '" + comment + "');"
+        mysqlConnection.query(query, (err, result) => {
+            if (err) throw err;
+            console.log("Inserted: " + post + " | " + username + " | " + comment);
+        });
+    }
 });
 
-Router.put('/comment/delete/:id', function (req, res) {
-    let post = req.params.id;
-    post = post.replace(':', '');
-
-
-
-    res.send("worked!");
+Router.put('/comment/delete/:id&:username&:article_id', function (req, res) {
+    let username = (req.params.username).split(":")[1];
+    // Verify that the user is an admin, if result is good, remove the comment
+    let userQuery = "SELECT username FROM users WHERE username='" + username + "';"
+    mysqlConnection.query(userQuery, (u_err, u_rows, u_result) => {
+        if (!u_err && u_rows.length > 0){
+            let article = (req.params.article_id).split(":")[1];
+            let comment = (req.params.id).split(":")[1];
+            // Remove the comment from the DB
+            let query = "DELETE FROM comments WHERE comment_id='" + comment + "' AND article_id='" + article + "';"
+            mysqlConnection.query(query, (err, result) => {
+                if (err) throw err;
+                console.log("Removed 1 comment from the DB.");
+            });
+        }
+    });
 });
 
 module.exports = Router;
