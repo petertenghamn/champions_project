@@ -10,3 +10,8 @@ SELECT article_id, date, title, article_intro, article_content, article_conclusi
 SELECT * FROM comments WHERE article_id='1';
 
 DELETE FROM comments WHERE comment_id='9';
+
+SELECT username FROM users WHERE username='peter' AND is_admin='1';
+
+SELECT * FROM articles;
+UPDATE articles SET title="", article_intro="", article_content="", article_conclusion="" WHERE article_id='1';

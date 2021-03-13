@@ -44,13 +44,30 @@ Router.get('/articles/get', function (req, res) {
     });
 });
 
-Router.get('/articles/update/:id&:title&:article_intro&:article_content&:article_conclusion', function (req, res) {
-    let post = req.params.id;
-    post = post.replace(':', '');
-
-
-
-    res.send("worked!");
+Router.put('/articles/update/:id&:username&:title&:article_intro&:article_content&:article_conclusion', function (req, res) {
+    let username = (req.params.username).split(":")[1];
+    // Verify that the user is an admin, if result is good, allow for the article update
+    let userQuery = "SELECT username FROM users WHERE username='" + username + "' AND is_admin='1';";
+    mysqlConnection.query(userQuery, (u_err, u_rows, u_result) => {
+        if (!u_err && u_rows.length > 0) {
+            let article = (req.params.id).split(":")[1];
+            let title = (req.params.title).split(":")[1];
+            let intro = (req.params.article_intro).split(":")[1];
+            let content = (req.params.article_content).split(":")[1];
+            let conclusion = (req.params.article_conclusion).split(":")[1];
+            // Update the article on the DB
+            let query = "UPDATE articles SET title='" + title
+                + "', article_intro='" + intro
+                + "', article_content='" + content
+                + "', article_conclusion='" + conclusion
+                + "' WHERE article_id='" + article + "';";
+            mysqlConnection.query(query, (err, result) => {
+                if (err) throw err;
+                console.log("Removed 1 comment from the DB.");
+                res.send("Success!");
+            });
+        }
+    });
 });
 
 Router.get('/post/:id', (req, res) => {
@@ -102,13 +119,13 @@ Router.put('/comment/put/:article_id&:username&:comment', function (req, res) {
 Router.put('/comment/delete/:id&:username&:article_id', function (req, res) {
     let username = (req.params.username).split(":")[1];
     // Verify that the user is an admin, if result is good, remove the comment
-    let userQuery = "SELECT username FROM users WHERE username='" + username + "';"
+    let userQuery = "SELECT username FROM users WHERE username='" + username + "' AND is_admin='1';";
     mysqlConnection.query(userQuery, (u_err, u_rows, u_result) => {
         if (!u_err && u_rows.length > 0){
             let article = (req.params.article_id).split(":")[1];
             let comment = (req.params.id).split(":")[1];
             // Remove the comment from the DB
-            let query = "DELETE FROM comments WHERE comment_id='" + comment + "' AND article_id='" + article + "';"
+            let query = "DELETE FROM comments WHERE comment_id='" + comment + "' AND article_id='" + article + "';";
             mysqlConnection.query(query, (err, result) => {
                 if (err) throw err;
                 console.log("Removed 1 comment from the DB.");
