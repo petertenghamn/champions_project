@@ -1,6 +1,5 @@
 const express = require("express");
 const Router = express.Router();
-const path = require("path");
 const dateFormat = require('dateformat');
 const mysqlConnection = require("../connection");
 

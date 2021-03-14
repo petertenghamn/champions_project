@@ -1,6 +1,7 @@
 const btn_register = document.querySelector("#btn-register");
 const btn_login = document.querySelector("#btn-login");
 const btn_logout = document.querySelector('#btn-logout');
+const btn_secret = document.querySelector('#btn-secret');
 const err1 = document.querySelector("#err1");
 const err2 = document.querySelector("#err2");
 const err3 = document.querySelector("#err3");
@@ -37,6 +38,10 @@ $(document).ready(function () {
 
     $(btn_logout).click(function () {
         logout();
+    });
+
+    $(btn_secret).click(function () {
+        secret();
     });
 });
 
@@ -185,10 +190,12 @@ function login() {
             else {
                 // Creates a cookie stored in local memory (Client side) is deleted when browser is closed
                 document.cookie = "username=" + response.username + "; path=/";
+
                 if (response.admin === 0)
                     document.cookie = "admin=false; path=/";
-                else
+                else {
                     document.cookie = "admin=true; path=/";
+                }
 
                 loginAttempt();
             }
@@ -238,31 +245,20 @@ function loginAttempt() {
       $("#container-logged").children().show("slow");
       $("#welcome").text("Welcome " + usernameCookie + "!");
 
-      // The comment button is enabled
-      $(".btn-comment").show();
-
-      // The comment input
-      $(".comment-in").show();
-
-      // If user is admin then edit post button is enabled
-      if (adminCookie === "true") {
-        $(".btn-edit").show("slow");
+      // If user is admin then secret button is shown
+      if (adminCookie == "true") {
+        $("#btn-secret").show("slow");
+      }
+      else {
+          $("#btn-secret").hide();
       }
     } else {
       // The popup section
       $("#container-logged").children().hide();
+        $("#btn-secret").hide();
 
       $("#modal-header").show("slow");
       $("#modal-form").show("slow");
-
-      // The comment button is disabled
-      $(".btn-comment").hide();
-
-      // The edit post button
-      $(".btn-edit").hide();
-
-      // The comment input
-      $(".comment-in").hide();
     }
 }
 
@@ -276,4 +272,12 @@ function logout() {
     document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     loginAttempt();
+}
+
+/**
+ * Secret function to take the admin to a hidden page
+ */
+function secret() {
+    let username = getCookie("username");
+    window.location.pathname = ('/brainstorm/username:' + username + '');
 }
