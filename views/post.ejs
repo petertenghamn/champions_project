@@ -73,15 +73,15 @@
             <p class="error" id="err3">small error</p>
             <p class="error" id="err4">small error</p>
 
-            <h2 class="article" id="title"><%-title%></h2>
+            <img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">
+
+            <h1 class="article" id="title"><%-title%></h1>
             <input class="edit-article" type="text" name="title" id="edt_title" value="<%-title%>" style="display: none">
 
             <div>
                 <p class="article" id="article_intro"><%-article_intro%></p>
                 <input class="edit-article" type="text" name="article_intro" id="edt_article_intro" value="<%-article_intro%>" style="display: none">
             </div>
-
-            <img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">
 
             <div>
                 <p class="article" id="article_content"><%-article_content%></p>
@@ -103,23 +103,25 @@
         </div>
 
         <div class="post">
-            <h2>Comments</h2>
-
-            <p class="error" id="errComment">small error</p>
-
-            <input class="txt-in comment-in" type="text" name="comment" id="new-comment" placeholder="Type your Comment">
-
-            <div class="container-buttons">
-                <!-- TODO: Should only be shown if logged into an account -->
-                <button class="btn btn-comment" id="btn-comment" onclick="newComment('<%-article_id%>')">Comment</button>
-            </div>
+            <h1>Comments</h1>
 
             <!-- comments section, filled with script bellow -->
-            <section class="site-content" id="comments">
+            <section class="site-comments" id="comments">
                 <div>
                     <h2>There are no comments</h2>
                 </div>
             </section>
+
+            <p class="error" id="errComment">small error</p>
+
+            <input class="txt-in comment-in" type="text" name="comment" id="new-comment"
+                placeholder="Type your Comment">
+
+            <div class="container-buttons">
+                <!-- TODO: Should only be shown if logged into an account -->
+                <button class="btn btn-comment" id="btn-comment"
+                    onclick="newComment('<%-article_id%>')">Comment</button>
+            </div>
         </div>
     </section>
 
@@ -217,14 +219,16 @@
                     if (response && response.length > 0) {
                         response.forEach(element =>
                             divHTML +=
+                            '<hr></hr>' +
                                 '<h4>' + element.date + '</h4>' +
                                 '<div class="item">' +
-                                '<h1>' + element.username + '</h1>' +
+                                '<h2>' + element.username + '</h2>' +
                                 '<p>' + element.comment + '</p>' +
                                 '<div class="item-buttons">' +
                                 <!-- TODO: This button should only be shown if an admin is logged in -->
                                 '<button class="btn" type="button" id="btn-comment-del" onclick="delComment(' + element.comment_id + ', ' + <%-article_id%> + ')">Delete</button>' +
-                                '</div></div>'
+                                '</div></div>' +
+                                '<hr></hr>' 
                         );
                     } else {
                         divHTML +=
@@ -233,6 +237,13 @@
                             '</div>'
                     }
                     $('#comments').append(divHTML);
+
+                    var adminCookie = getCookie("admin");
+
+                    if(adminCookie == "" || adminCookie == null || adminCookie == "false"){
+                    $(".btn").hide();
+                    $("#btn-comment").show();
+                    }
                 }
             });
         }

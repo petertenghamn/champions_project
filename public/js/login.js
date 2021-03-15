@@ -39,10 +39,6 @@ $(document).ready(function () {
     $(btn_logout).click(function () {
         logout();
     });
-
-    $(btn_secret).click(function () {
-        secret();
-    });
 });
 
 /**
@@ -245,17 +241,18 @@ function loginAttempt() {
       $("#container-logged").children().show("slow");
       $("#welcome").text("Welcome " + usernameCookie + "!");
 
+      $('.item-buttons').show("slow");
+
       // If user is admin then secret button is shown
       if (adminCookie == "true") {
-        $("#btn-secret").show("slow");
-      }
-      else {
-          $("#btn-secret").hide();
+        
       }
     } else {
       // The popup section
       $("#container-logged").children().hide();
         $("#btn-secret").hide();
+
+        $('.item-buttons').hide("slow");
 
       $("#modal-header").show("slow");
       $("#modal-form").show("slow");
@@ -272,12 +269,4 @@ function logout() {
     document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     loginAttempt();
-}
-
-/**
- * Secret function to take the admin to a hidden page
- */
-function secret() {
-    let username = getCookie("username");
-    window.location.pathname = ('/brainstorm/username:' + username + '');
 }

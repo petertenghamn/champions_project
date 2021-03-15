@@ -25,4 +25,4 @@ app.set('view engine', 'ejs');
 
 // Setup listener for the server
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`listening on port ${port}...`));
+app.listen(port, () => console.log(`http:\\localhost:${port}`));

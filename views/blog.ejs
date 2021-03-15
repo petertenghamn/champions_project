@@ -78,16 +78,13 @@
             <div class="container-logged" id="container-logged">
                 <h1 id="welcome">Welcome username!</h1>
                 <div>
-                    <img src="assets/vectors/user_avatars/001-man.svg" alt="User avatar not found!" width="150px" id="user-avatar">
+                    <img src="assets/vectors/user_avatars/001-man.svg" alt="User avatar not found!" width="150px"
+                        id="user-avatar">
                 </div>
                 <button class="popup-btn btn_logout" name="btn_logout" type="button" value="logout" id="btn-logout">
                     Log Out
                 </button>
             </div>
-
-            <button class="popup-btn btn_secret" name="btn_secret" type="button" value="secret" id="btn-secret">
-                Secret
-            </button>
 
             <!-- Error messages -->
             <p class="error" id="err1">small error</p>
@@ -229,90 +226,76 @@
 </body>
 
 <!-- JavaScripts that need to be loaded AFTER page load -->
-    <script src="js/user.js"></script>
+<script src="js/user.js"></script>
 
-    <!-- Javascript which runs after document is loaded -->
-    <script>
-        $(document).ready(function () {
-            // User Carousel Update from the DB
-            function updateCarousel() {
-                $.ajax({
-                    url: '/users/get',
-                    contentType: 'application/json',
-                    success: function(response){
-                        $("#glide__track_id ul").remove();
-                        //Take the response and use it to fill the table
-                        var trHTML = '<ul class="glide__slides">';
-                        if (response && response.length > 0){
-                            <!-- TODO get these from the DB -->
-                            <!-- Image could just be saved as the path to the image -->
-                            response.forEach(element =>
-                                trHTML +=
-                                    '<li class="glide__slide">' +
-                                    '<img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">' +
-                                    '<h3>' + element.username + '</h3>' +
-                                    '</li>'
-                            );
-                        }
-                        trHTML += '</ul>';
-                        $('#glide__track_id').append(trHTML);
-
-                        const config = {
-                            type: 'slider',
-                            perView: 3,
-
-                            gap: '10',
-                            hoverpause: true,
-                            autoplay: 2000,
-                            peek: {
-                                before: 10,
-                                after: 10
-                            }
-                        }
-
-                        new Glide('.glide', config).mount()
+<!-- Javascript which runs after document is loaded -->
+<script>
+    $(document).ready(function () {
+        // User Carousel Update from the DB
+        function updateCarousel() {
+            $.ajax({
+                url: '/users/get',
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#glide__track_id ul").remove();
+                    //Take the response and use it to fill the table
+                    var trHTML = '<ul class="glide__slides">';
+                    if (response && response.length > 0) {
+                        // TODO get these from the DB 
+                        // Image could just be saved as the path to the image
+                        response.forEach(element =>
+                            trHTML +=
+                            '<li class="glide__slide">' +
+                            '<img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">' +
+                            '<h3>' + element.username + '</h3>' +
+                            '</li>'
+                        );
                     }
-                })
-            }
+                    trHTML += '</ul>';
+                    $('#glide__track_id').append(trHTML);
 
-            // Get articles and their base descriptions and a button to read more
-            function retrieveArticles() {
-                $.ajax({
-                    url: '/articles/get',
-                    contentType: 'application/json',
-                    success: function(response){
-                        $("#content").empty();
-                        let divHTML = '';
-                        //If retrieved successfully, fill content with the articles
-                        if (response && response.length > 0){
-                            response.forEach(element =>
-                                divHTML +=
-                                    '<h4>' + element.date + '</h4>' +
-                                    '<div class="item">' +
-                                    '<img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">' +
-                                    '<h1>' + element.title + '</h1>' +
-                                    '<h3>' + element.snippet + '</h3>' +
-                                    '<div class="item-buttons">' +
-                                    '<a href="http://localhost:3000/post/' + element.article_id + ' class="btn-edit">Read More</a>' +
-                                    '</div></div>'
-                            );
+                    const config = {
+                        type: 'slider',
+                        perView: 3,
+
+                        gap: '10',
+                        hoverpause: true,
+                        autoplay: 2000,
+                        peek: {
+                            before: 10,
+                            after: 10
                         }
-                        else
-                        {
+                    }
+
+                    new Glide('.glide', config).mount()
+                }
+            })
+        }
+
+        // Get articles and their base descriptions and a button to read more
+        function retrieveArticles() {
+            $.ajax({
+                url: '/articles/get',
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#content").empty();
+                    let divHTML = '';
+                    //If retrieved successfully, fill content with the articles
+                    if (response && response.length > 0) {
+                        response.forEach(element =>
                             divHTML +=
-                                '<div class="item">\n' +
-                                '<h1>Something Went Wrong</h1>\n' +
-                                '<img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"\n' +
-                                'alt="Oops">\n' +
-                                '<p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about\n' +
-                                'it! </p>\n' +
-                                '</div>'
-                        }
-                        $('#content').append(divHTML);
-                    },
-                    fail: function () {
-                        $("#content").empty();
-                        var divHTML =
+                            '<h4>' + element.date + '</h4>' +
+                            '<div class="item">' +
+                            '<img src="/assets/gifs/demo_MapleStory.gif" alt="Demo of Project NOT Loaded">' +
+                            '<h1>' + element.title + '</h1>' +
+                            '<h3>' + element.snippet + '</h3>' +
+                            '<div class="item-buttons" style="display: block;">' +
+                            '<a href="http://localhost:3000/post/' + element.article_id +
+                            ' class="btn-edit">Read More</a>' +
+                            '</div></div>'
+                        );
+                    } else {
+                        divHTML +=
                             '<div class="item">\n' +
                             '<h1>Something Went Wrong</h1>\n' +
                             '<img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"\n' +
@@ -320,14 +303,40 @@
                             '<p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about\n' +
                             'it! </p>\n' +
                             '</div>'
-                        $('#content').append(divHTML);
                     }
-                });
-            }
+                    $('#content').append(divHTML);
+                    hideButtons();
+                },
+                fail: function () {
+                    $("#content").empty();
+                    var divHTML =
+                        '<div class="item">\n' +
+                        '<h1>Something Went Wrong</h1>\n' +
+                        '<img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/01/http-error-503-featured-image.jpg"\n' +
+                        'alt="Oops">\n' +
+                        '<p>Nothing was received by the database! If you are a user seeing this ignore it and contact us about\n' +
+                        'it! </p>\n' +
+                        '</div>'
+                    $('#content').append(divHTML);
+                }
+            });
+        }
 
-            updateCarousel();
-            retrieveArticles();
-        })
-    </script>
+        updateCarousel();
+        retrieveArticles();
+    });
+
+    function hideButtons() {
+        console.log("Called")
+
+        var user = getCookie("username");
+
+        console.log(user)
+
+        if( user == "" ||  user == null){
+            $(".item-buttons").hide();
+        }
+    }
+</script>
 
 </html>

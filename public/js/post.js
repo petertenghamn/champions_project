@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+  var usernameCookie = getCookie("username");
+
+  if(usernameCookie == "" || usernameCookie == null){
+    window.location.href = "http://localhost:3000/";
+  }
+
   // This hides the different error messages when clicked
   $("[id^=err]").click(function () {
     // Gets the ID of the button that was clicked
@@ -7,6 +13,8 @@ $(document).ready(function () {
 
     $("#" + id).hide("slow");
   });
+
+  
 });
 
 /**
