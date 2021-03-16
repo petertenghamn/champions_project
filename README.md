@@ -121,11 +121,11 @@ The Edit page is pretty straight foward in terms of Javascript and CSS, in terms
 
 Design options : Node.js, Express API, MySQL
 
-###Structure
+### Structure
 
 The structure we choose to use and build the project around is Node.js with the Express API. We decided to use a Database we have used before, which is MySQL, making creating the database something familiar to what we have done before.
 
-###Database
+### Database
 
     -- -----------------------------------------------------
     -- Schema champions_db
@@ -143,7 +143,7 @@ The database contains 3 main tables which are used to populate the core of the w
  
 These 3 core tables make up the construction of the blog and each individual post. A base set of information is also written into the MySQL script so that testing can easily be done.
 
-###Routing
+### Routing
 
     app.use("/about", AboutRoutes);
     app.use("/", BlogRoutes);
@@ -170,7 +170,7 @@ To organize the project, the main app.js contains the primary routes used to con
 The routes sub routes are designed to complete any function needed for that page. The method implemented is to initialy construct the page, and then call methods to populate it using information retrieved from the database.
 A combination of cookies creating a profile of the verified user logged in and restrictions and checks from the methods is used to allow for reliable access to the web pages while ensuring security of the pages.
 
-###Ajax requests
+### Ajax requests
 
     $(document).ready(function () {
             // User Carousel Update from the DB
@@ -183,7 +183,7 @@ A combination of cookies creating a profile of the verified user logged in and r
 We implemented ajax calls when the front-end is initialized to call url requests to populate the information.
 Additional ajax calls are implemented on button presses by the user to call for specific services, such as verifying that the information is correct or creating a new comment which has an integrated dynamic update for the web page after having updated the database with the new information.
 
-###Queries
+### Queries
 
     Router.get('/articles/get', function (req, res) {
         // Retrieve a list of all the articles within the DB
@@ -202,7 +202,7 @@ Additional ajax calls are implemented on button presses by the user to call for 
 Queries to the database are kept in the route specific for that page and function in a basic format to reduce the risk of any errors occuring.
 Any formating of the data that is needed to be done to the data before it is ready to be displayed, is handeled in the back-end before sending the response back to the client requesting the data.
 
-###Template Construction
+### Template Construction
 
     response.forEach(element =>
                                 trHTML +=
