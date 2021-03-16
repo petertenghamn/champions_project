@@ -117,6 +117,100 @@ The Edit page is pretty straight foward in terms of Javascript and CSS, in terms
 
 ## Backend
 
-*This section goes over the development of the front-end of the website developed by Peter Tenghamn*
+*This section goes over the development of the back-end of the website developed by Peter Tenghamn*
 
-**TODO write md on backend**
+Design options : Node.js, Express API, MySQL
+
+###Structure
+
+The structure we choose to use and build the project around is Node.js with the Express API. We decided to use a Database we have used before, which is MySQL, making creating the database something familiar to what we have done before.
+
+###Database
+
+    -- -----------------------------------------------------
+    -- Schema champions_db
+    -- -----------------------------------------------------
+    CREATE SCHEMA IF NOT EXISTS `champions_db` DEFAULT CHARACTER SET utf8 ;
+    USE `champions_db` ;
+
+The database was designed to be very simple at first and when the website expanded, more was added to the database structure.
+
+The database contains 3 main tables which are used to populate the core of the website.
+
+ - A user table to contain usernames and passwords, along with the boolean of admins, which can only be changed via direct changes in the database.
+ - Article table containing each section of the article which will be used to construct the blog in a template. The article contains an admin who wrote the article along with all the details which the article has.
+ - Comments table, which has the foreign key from the user who wrote it, along with the key of the article in which it was written on.
+ 
+These 3 core tables make up the construction of the blog and each individual post. A base set of information is also written into the MySQL script so that testing can easily be done.
+
+###Routing
+
+    app.use("/about", AboutRoutes);
+    app.use("/", BlogRoutes);
+    app.use("/brainstorm", BrainstormRoutes);
+
+To organize the project, the main app.js contains the primary routes used to construct the website, while the specified routes have the more complex functions that are needed for that route to function.
+
+    Router.get('/', (req, res) => {
+        res.render('blog');
+    });
+    
+    Router.get('/users/get', function (req, res) {
+        // code is here too
+    });
+    
+    Router.post('/verify', function (req, res) {
+        // code is here too
+    });
+    
+    Router.post('/register', function (req, res) {
+        // code is here too
+    });
+
+The routes sub routes are designed to complete any function needed for that page. The method implemented is to initialy construct the page, and then call methods to populate it using information retrieved from the database.
+A combination of cookies creating a profile of the verified user logged in and restrictions and checks from the methods is used to allow for reliable access to the web pages while ensuring security of the pages.
+
+###Ajax requests
+
+    $(document).ready(function () {
+            // User Carousel Update from the DB
+            function updateCarousel() {
+                $.ajax({
+                    url: '/users/get',
+                    contentType: 'application/json',
+                    success: function (response) {
+
+We implemented ajax calls when the front-end is initialized to call url requests to populate the information.
+Additional ajax calls are implemented on button presses by the user to call for specific services, such as verifying that the information is correct or creating a new comment which has an integrated dynamic update for the web page after having updated the database with the new information.
+
+###Queries
+
+    Router.get('/articles/get', function (req, res) {
+        // Retrieve a list of all the articles within the DB
+        mysqlConnection.query("SELECT article_id, date, title, snippet FROM articles;", (err, rows, fields) => {
+            if (!err) {
+                rows.forEach(element =>
+                    element.date = dateFormat(element.date, "mmm dd, yyyy")
+                );
+                res.send(rows);
+            }
+            else
+                console.log(err);
+        });
+    });
+
+Queries to the database are kept in the route specific for that page and function in a basic format to reduce the risk of any errors occuring.
+Any formating of the data that is needed to be done to the data before it is ready to be displayed, is handeled in the back-end before sending the response back to the client requesting the data.
+
+###Template Construction
+
+    response.forEach(element =>
+                                trHTML +=
+                                '<li class="glide__slide">' +
+                                '<img src="assets/vectors/user_avatars/001-man.svg" alt="User Avatar">' +
+                                '<h3>' + element.username + '</h3>' +
+                                '</li>'
+                            );
+
+The response of the queries, when recieved is applied to a template to display it in a readable format for the user.
+This makes things easy to read along with adding the benifite of easily being able to change how the information is displayed without having to look for multiple locations where the content could be formated.
